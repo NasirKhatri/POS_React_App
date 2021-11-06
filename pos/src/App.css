@@ -1,0 +1,52 @@
+#root {
+  text-align: center;
+  padding-top: 25px;
+}
+
+.box {
+  display: inline-block;
+  background-color: aquamarine;
+  margin: 10px;
+  padding: 30px 30px;
+  text-align: center;
+  height: 35px;
+  
+}
+
+h3 {
+  margin: 0px;
+}
+
+.Order_details {
+  display: inline-block;
+  background-color: beige;
+  width: 40%;
+  height: 540px;
+  vertical-align: top;
+}
+
+.Categories {
+  display: inline-block;
+  background-color: rgb(211, 216, 212);
+  width: 60%;
+  vertical-align: top;
+}
+
+.card {
+  margin: 10px;
+  padding: 10px;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-body {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 30px;
+}
+
+#root {
+  padding-top: 0px;
+}
