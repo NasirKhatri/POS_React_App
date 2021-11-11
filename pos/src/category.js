@@ -1,3 +1,6 @@
+//Currently this file has no use in the prject
+
+/*
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import NavigationBar from "./navbar";
@@ -61,4 +64,4 @@ const Category = () => {
     );
 }
 
-export default Category;
+export default Category;*/

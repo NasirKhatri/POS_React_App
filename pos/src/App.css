@@ -21,8 +21,10 @@ h3 {
   display: inline-block;
   background-color: beige;
   width: 40%;
-  height: 540px;
+  height: 680px;
   vertical-align: top;
+  margin: 7px;
+  padding: 7px;
 }
 
 .Categories {
@@ -30,11 +32,14 @@ h3 {
   background-color: rgb(211, 216, 212);
   width: 60%;
   vertical-align: top;
+  margin: 7px;
+  padding: 7px;
 }
 
 .card {
   margin: 10px;
   padding: 10px;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -49,4 +54,52 @@ h3 {
 
 #root {
   padding-top: 0px;
+}
+
+.itemdetails-width {
+  width: 20%;
+}
+
+.form-control-plaintext {
+  text-align: center;
+}
+
+hr {
+  background-color: rgb(82, 72, 72);
+    border: 0 none;
+    color: #eee;
+    height: 1px;
+    margin-top: 0px;
+}
+
+.orderlines-section {
+  min-height: 225px;
+}
+
+.bd-highlight {
+  background-color: white;
+}
+
+.invoice-details {
+  margin-top: 8px;
+}
+.invoice-details p {
+  margin-bottom: 0px;
+}
+
+.keypad {
+  margin-top: 8px;
+}
+
+.table td {
+  border-style: solid;
+  border-color: black;
+}
+
+.table tr {
+  border: none;
+}
+
+.home-link {
+  cursor: pointer;
 }
