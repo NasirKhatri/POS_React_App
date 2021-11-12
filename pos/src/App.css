@@ -103,3 +103,7 @@ hr {
 .home-link {
   cursor: pointer;
 }
+
+.inc-dec {
+  height: 40px;
+}

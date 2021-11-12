@@ -1,5 +1,7 @@
 //import { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
+import {AiFillMinusCircle} from "react-icons/ai";
+import {AiFillPlusCircle} from "react-icons/ai";
 
 const OrderLines = (props) => {
     function clearInvoice() {
@@ -74,6 +76,76 @@ const OrderLines = (props) => {
                 }
         }
     }
+    
+    function increase_qty(ItemNumber) {
+        let ItemIndex;
+        let tempArray;
+        switch (props.active_invoice) {
+            case 1: {
+                ItemIndex = props.invoice1_details.findIndex((item) => item.ItemNumber === ItemNumber);
+                tempArray = props.invoice1_details;
+                tempArray[ItemIndex].Qty++;
+                tempArray = Object.assign([], tempArray);
+                props.setinvoice1_details(tempArray);
+                break;
+            }
+            case 2: {
+                ItemIndex = props.invoice2_details.findIndex((item) => item.ItemNumber === ItemNumber);
+                tempArray = props.invoice2_details;
+                tempArray[ItemIndex].Qty++;
+                tempArray = Object.assign([], tempArray);
+                props.setinvoice2_details(tempArray);
+                break;
+
+            }
+            case 3: {
+                ItemIndex = props.invoice3_details.findIndex((item) => item.ItemNumber === ItemNumber);
+                tempArray = props.invoice3_details;
+                tempArray[ItemIndex].Qty++;
+                tempArray = Object.assign([], tempArray);
+                props.setinvoice3_details(tempArray);
+                break;
+            }
+        }
+    }
+
+    function decrease_qty(ItemNumber) {
+        let ItemIndex;
+        let tempArray;
+        switch (props.active_invoice) {
+            case 1: {
+                ItemIndex = props.invoice1_details.findIndex((item) => item.ItemNumber === ItemNumber);
+                tempArray = props.invoice1_details;
+                if(tempArray[ItemIndex].Qty > 1) {
+                    tempArray[ItemIndex].Qty--;
+                    tempArray = Object.assign([], tempArray);
+                    props.setinvoice1_details(tempArray);
+                }
+                break;
+            }
+            case 2: {
+                ItemIndex = props.invoice2_details.findIndex((item) => item.ItemNumber === ItemNumber);
+                tempArray = props.invoice2_details;
+                if(tempArray[ItemIndex].Qty > 1) {
+                tempArray[ItemIndex].Qty--;
+                tempArray = Object.assign([], tempArray);
+                props.setinvoice2_details(tempArray);
+                }
+                break;
+            }
+            case 3: {
+                ItemIndex = props.invoice3_details.findIndex((item) => item.ItemNumber === ItemNumber);
+                tempArray = props.invoice3_details;
+                if(tempArray[ItemIndex].Qty > 1) {
+                tempArray[ItemIndex].Qty--;
+                tempArray = Object.assign([], tempArray);
+                props.setinvoice3_details(tempArray);
+                }
+                break;
+            }
+        }
+    }
+
     return (
         <div>
             <form>
@@ -108,8 +180,10 @@ const OrderLines = (props) => {
                                     <div className="col">
                                         <input type="number" className="form-control" value={item.Price} />
                                     </div>
-                                    <div className="col">
-                                        <input type="number" className="form-control" value={item.Qty} />
+                                    <div className="form-row col-3">
+                                        <AiFillMinusCircle onClick={() => decrease_qty(item.ItemNumber)} className="inc-dec col"/>
+                                        <input type="number" className="form-control col-7" value={item.Qty} />
+                                        <AiFillPlusCircle onClick={() => increase_qty(item.ItemNumber)} className="inc-dec col"/>
                                     </div>
                                     <div className="col">
                                         <input type="number" className="form-control" value={item.Discount} />
