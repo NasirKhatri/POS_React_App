@@ -22,9 +22,24 @@ router.get("/Sale", (req, res) => {
     })
 });
 
+router.get("/Customers", (req, res) => {
+    db.serialize(() => {
+        db.all(`SELECT * FROM Customers`, [], (err, rows) => {
+            if (err) {
+                console.log("Error accured");
+                console.log(err.message);
+            }
+            else {
+                res.send(JSON.stringify(rows));
+            }
+        })
+    })
+});
+
+
 router.get('/Sale/:Category', (req, res) => {
     const category = req.params.Category;
-    console.log(category);
+    //console.log(category);
     const sql = `SELECT * FROM Items INNER JOIN ItemCategories ON Items.ItemCategoryID = ItemCategories.ItemCategoryID WHERE ItemCategories.ItemCategoryDescription = "${category}"`;
     db.serialize(() => {
         db.all(sql, [], (err, rows) => {
@@ -38,6 +53,31 @@ router.get('/Sale/:Category', (req, res) => {
         })
     })
 });
+
+router.put("/Sale", (req, res) => {
+    //console.log(req.body);
+    const orderlines = req.body.orderlines;
+    const salesummary = req.body.salesummary;
+    const sql1 = `INSERT INTO Sales
+    (CustomerID, Date, NoOfProducts, NoOfItemsSold, GrossPrice, LineItemDiscount, Total, DiscountType, AddDiscRateValue, ModeOfPayment, AmountReceived, Balance)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [salesummary.CustomerID, salesummary.Date, salesummary.NoOfProducts, salesummary.NoOfItemsSold, salesummary.GrossPrice, salesummary.LineItemDiscount, salesummary.Total, salesummary.DiscountType, salesummary.AddDiscRateValue, salesummary.ModeOfPayment, salesummary.AmountReceived, salesummary.Balance]
+    let sale_no;
+
+    db.serialize(() => {
+        db.run(sql1, values, function(err) {
+            if(err) {
+                console.log(err.message);
+                res.send("Could not record sale");
+            }
+            else {
+                sale_no = this.lastID;
+                console.log(sale_no);
+            }
+        })
+    })
+})
+
 
 
 module.exports = router;

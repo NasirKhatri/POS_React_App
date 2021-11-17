@@ -3,6 +3,7 @@ import { FiTrash2 } from "react-icons/fi";
 import {AiFillMinusCircle} from "react-icons/ai";
 import {AiFillPlusCircle} from "react-icons/ai";
 
+
 const OrderLines = (props) => {
     function clearInvoice() {
         if (props.active_invoice === 1) {

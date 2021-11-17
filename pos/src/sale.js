@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import NavigationBar from "./navbar";
 import Keypad from "./keypad";
 import OrderLines from "./orderlines";
+import Invoice_modal from "./invoice_modal";
 
-const Sale = () => {
+const Sale = (props) => {
     const [data, setData] = useState([{ ItemCategoryID: " ", ItemCategoryDescription: " ", ImageSource: " " }]);
     const [products, setProducts] = useState([{
         ItemNumber: " ",
@@ -19,7 +20,7 @@ const Sale = () => {
     const [invoice1_details, setinvoice1_details] = useState([]);
     const [invoice2_details, setinvoice2_details] = useState([]);
     const [invoice3_details, setinvoice3_details] = useState([]);
-
+    const [show, setShow] = useState(false);
     useEffect(() => {
         getData();
     }, [type]);
@@ -115,8 +116,19 @@ const Sale = () => {
                         invoice3_details={invoice3_details}
                         setinvoice1_details={setinvoice1_details} 
                         setinvoice2_details={setinvoice2_details} 
-                        setinvoice3_details={setinvoice3_details}/>
-                        <Keypad />
+                        setinvoice3_details={setinvoice3_details}
+                        show={show}
+                        setShow={setShow}/>
+                        <Keypad
+                        active_invoice={active_invoice} 
+                        invoice1_details={invoice1_details} 
+                        invoice2_details={invoice2_details} 
+                        invoice3_details={invoice3_details}
+                        setinvoice1_details={setinvoice1_details} 
+                        setinvoice2_details={setinvoice2_details} 
+                        setinvoice3_details={setinvoice3_details} 
+                        show={show}
+                        setShow={setShow}/>
                     </div>
                     <div className="Categories">
                         <h4><span className="home-link" onClick={() => setType("Categories")}>Home</span></h4>
@@ -137,6 +149,17 @@ const Sale = () => {
 
                         </div>
                     </div>
+                    <Invoice_modal
+                    active_invoice={active_invoice} 
+                    invoice1_details={invoice1_details} 
+                    invoice2_details={invoice2_details} 
+                    invoice3_details={invoice3_details}
+                    setinvoice1_details={setinvoice1_details} 
+                    setinvoice2_details={setinvoice2_details} 
+                    setinvoice3_details={setinvoice3_details} 
+                    show={show}
+                    setShow={setShow}
+                    />
                 </div>
             </div>
         )
@@ -161,8 +184,19 @@ const Sale = () => {
                         invoice3_details={invoice3_details}
                         setinvoice1_details={setinvoice1_details} 
                         setinvoice2_details={setinvoice2_details} 
-                        setinvoice3_details={setinvoice3_details}/>
-                        <Keypad />
+                        setinvoice3_details={setinvoice3_details}
+                        show={show}
+                        setShow={setShow}/>
+                        <Keypad
+                        active_invoice={active_invoice} 
+                        invoice1_details={invoice1_details} 
+                        invoice2_details={invoice2_details} 
+                        invoice3_details={invoice3_details}
+                        setinvoice1_details={setinvoice1_details} 
+                        setinvoice2_details={setinvoice2_details} 
+                        setinvoice3_details={setinvoice3_details}
+                        show={show}
+                        setShow={setShow}/>
                     </div>
                     <div className="Categories">
                         <h4><span className="home-link" onClick={() => setType("Categories")}>Home</span><span>  || {type}</span></h4>
@@ -184,6 +218,17 @@ const Sale = () => {
                             }
                         </div>
                     </div>
+                    <Invoice_modal
+                    active_invoice={active_invoice} 
+                    invoice1_details={invoice1_details} 
+                    invoice2_details={invoice2_details} 
+                    invoice3_details={invoice3_details}
+                    setinvoice1_details={setinvoice1_details} 
+                    setinvoice2_details={setinvoice2_details} 
+                    setinvoice3_details={setinvoice3_details}
+                    show={show}
+                    setShow={setShow}
+                    />
                 </div>
             </div>
         );
