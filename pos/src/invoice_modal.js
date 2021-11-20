@@ -14,6 +14,20 @@ const Invoice_modal = (props) => {
     const amountreceived = useRef(0);
     const balance = useRef(0);
 
+    let today = new Date();
+    let dd = today.getDate();
+    if(dd<10) {
+        dd = '0'+dd;
+    }
+    let mm = today.getMonth() + 1;
+    if(mm < 10) {
+        mm = '0'+mm;
+    }
+    let yyyy = today.getFullYear();
+    // to set default value of input type date yyyy-mm-dd format is required
+    let today_date = yyyy + '-' + mm + '-' + dd;
+    console.log(today_date);
+    
     if (props.active_invoice === 1) {
         props.invoice1_details.forEach(element => {
             itemDetails.push(element);
@@ -72,10 +86,28 @@ const Invoice_modal = (props) => {
             AmountReceived: Number(amountreceived.current.value),
             Balance: Number(balance.current.value)
         }
-        const data = JSON.stringify({
-            orderlines: itemDetails,
-            salesummary: sale
-        });
+
+        let data;
+        if(props.active_invoice === 1) {
+            data = {
+                orderlines: props.invoice1_details,
+                salesummary: sale
+            }
+        }
+        else if(props.active_invoice === 2) {
+            data = {
+                orderlines: props.invoice2_details,
+                salesummary: sale
+            } 
+        }
+        else {
+            data = {
+                orderlines: props.invoice3_details,
+                salesummary: sale
+            } 
+        }
+
+        data = JSON.stringify(data);
 
         const response = await fetch('Sale', {
             method: 'PUT',
@@ -84,7 +116,21 @@ const Invoice_modal = (props) => {
             },
             body: data
         })
-        console.log(response);
+        if(response.status === 200) {
+            handleClose();
+                if (props.active_invoice === 1) {
+                    props.setinvoice1_details([]);
+                }
+                else if (props.active_invoice === 2) {
+                    props.setinvoice2_details([]);
+                }
+                else {
+                    props.setinvoice3_details([]);
+                }
+        }
+        else {
+            alert("Server not responded");
+        }
     }
 
     return (
@@ -98,7 +144,7 @@ const Invoice_modal = (props) => {
                         <Row className="mb-3">
                             <Form.Group as={Col} className="mb-3" controlId="formGridCustomer">
                                 <Form.Label>Customer</Form.Label>
-                                <Form.Control ref={customerID} type="text" list="customers" required />
+                                <Form.Control ref={customerID} defaultValue={1} type="text" list="customers" required />
                                 <datalist id="customers">
                                     {
                                         customers.map(customer => {
@@ -109,7 +155,7 @@ const Invoice_modal = (props) => {
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Date</Form.Label>
-                                <Form.Control ref={date} type="date" required />
+                                <Form.Control ref={date} type="date" defaultValue={today_date} required />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">

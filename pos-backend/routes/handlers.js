@@ -47,7 +47,7 @@ router.get('/Sale/:Category', (req, res) => {
                 console.log(err.message);
             }
             else {
-                console.log(rows);
+                //console.log(rows);
                 res.send(JSON.stringify(rows));
             }
         })
@@ -64,15 +64,27 @@ router.put("/Sale", (req, res) => {
     const values = [salesummary.CustomerID, salesummary.Date, salesummary.NoOfProducts, salesummary.NoOfItemsSold, salesummary.GrossPrice, salesummary.LineItemDiscount, salesummary.Total, salesummary.DiscountType, salesummary.AddDiscRateValue, salesummary.ModeOfPayment, salesummary.AmountReceived, salesummary.Balance]
     let sale_no;
 
+    let sql2;
     db.serialize(() => {
         db.run(sql1, values, function(err) {
             if(err) {
                 console.log(err.message);
-                res.send("Could not record sale");
+                res.status(500).send("Could not record sale");
             }
             else {
                 sale_no = this.lastID;
-                console.log(sale_no);
+                sql2 = `INSERT INTO SaleLines
+                (SaleNo, ItemNumber, Price, Discount, Qty, Total) VALUES`+orderlines.map((orderline) => `(${sale_no}, ${orderline.ItemNumber}, ${orderline.Price}, ${orderline.Discount}, ${orderline.Qty}, ${Math.round(orderline.Price * orderline.Qty * (1 - orderline.Discount / 100))})`).join(',');
+                //console.log(sql2);
+                db.run(sql2, [], function(err) {
+                    if(err) {
+                        console.log(err.message);
+                        res.status(500).send("Could not record sale");
+                    }
+                    else {
+                        res.status(200).send("Sale have been recorded");
+                    }
+                })
             }
         })
     })

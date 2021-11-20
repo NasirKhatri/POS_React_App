@@ -190,7 +190,7 @@ const OrderLines = (props) => {
                                         <input type="number" className="form-control" value={item.Discount} />
                                     </div>
                                     <div className="col">
-                                        <input type="number" readOnly className="form-control" value={item.Price * item.Qty * (1 - item.Discount / 100)} />
+                                        <input type="number" readOnly className="form-control" value={Math.round(item.Price * item.Qty * (1 - item.Discount / 100))} />
                                     </div>
                                     <div className="col-0.7">
                                         <FiTrash2 onClick={() => remove_orderline(item.ItemNumber)} />
