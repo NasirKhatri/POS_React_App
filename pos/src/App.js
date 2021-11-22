@@ -11,10 +11,10 @@ function App() {
       const response = await fetch("Customers");
       const responseData = await response.json();
       sessionStorage.setItem("customers", JSON.stringify(responseData));
-      console.log(responseData);
+      //console.log(responseData);
     }
     else {;
-      console.log(JSON.parse(sessionStorage.customers));
+      //console.log(JSON.parse(sessionStorage.customers));
     }
   }
 

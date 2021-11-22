@@ -108,3 +108,7 @@ hr {
   height: 40px;
 }
 
+.card-border {
+  border-color: black;
+  margin: 5px;
+}
