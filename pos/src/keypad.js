@@ -39,28 +39,28 @@ const Keypad = (props) => {
         <div className="keypad">
             <table className="table table-bordered">
                 <tr>
-                    <td className="col-1">C</td>
-                    <td className="col-1">1</td>
-                    <td className="col-1">2</td>
-                    <td className="col-1">3</td>
-                    <td className="col-1" rowSpan={2}>Erase Icon</td>
+                    <td className="col-1 keypad-button">C</td>
+                    <td className="col-1 keypad-button">1</td>
+                    <td className="col-1 keypad-button">2</td>
+                    <td className="col-1 keypad-button">3</td>
+                    <td className="col-1 keypad-button" rowSpan={2}>Erase Icon</td>
                 </tr>
                 <tr>
-                    <td className="col-1" onClick={check_if_orderline} rowSpan={3}>Payment</td>
-                    <td className="col-1">4</td>
-                    <td className="col-1">5</td>
-                    <td className="col-1">6</td>
+                    <td className="col-1 keypad-button" onClick={check_if_orderline} rowSpan={3}>Payment</td>
+                    <td className="col-1 keypad-button">4</td>
+                    <td className="col-1 keypad-button">5</td>
+                    <td className="col-1 keypad-button">6</td>
                 </tr>
                 <tr>
-                    <td className="col-1">7</td>
-                    <td className="col-1">8</td>
-                    <td className="col-1">9</td>
-                    <td className="col-1" rowSpan={2}>Enter</td>
+                    <td className="col-1 keypad-button">7</td>
+                    <td className="col-1 keypad-button">8</td>
+                    <td className="col-1 keypad-button">9</td>
+                    <td className="col-1 keypad-button" rowSpan={2}>Enter</td>
                 </tr>
                 <tr>
-                    <td className="col-1">.</td>
-                    <td className="col-1">0</td>
-                    <td className="col-1">+/-</td>
+                    <td className="col-1 keypad-button">.</td>
+                    <td className="col-1 keypad-button">0</td>
+                    <td className="col-1 keypad-button">+/-</td>
                 </tr>
 
             </table>

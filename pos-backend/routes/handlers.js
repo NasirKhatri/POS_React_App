@@ -97,6 +97,10 @@ router.get("/DashboardData", (req, res) => {
     let thisMonthSales;
     let thisYearSales;
     let monthlySales;
+    let top_customer_last_month;
+    let top_customer_this_month;
+    let top_product_last_month;
+    let top_product_this_month; 
 
     //Getting current date, month and year
     let date = new Date;
@@ -132,6 +136,10 @@ router.get("/DashboardData", (req, res) => {
 
     let sql_for_weekly_sale = `SELECT sum(AmountReceived) FROM Sales WHERE date BETWEEN '${prevMonday}' AND '${today}'`;
     let sql_for_monthwise_sale  = `SELECT sum(AmountReceived) As MonthlySales, strftime('%Y-%m', Date) As Months from Sales WHERE Months BETWEEN strftime('%Y-%m', 'now', '-12 months') AND strftime('%Y-%m', 'now') GROUP BY Months`;
+    let sql_for_top_customer_curr_month = `SELECT sum(sales.AmountReceived) AS 'Sales', sales.CustomerID, Customers.CustomerFirstName from sales INNER JOIN Customers ON Customers.CustomerID = sales.CustomerID WHERE strftime('%Y-%m', sales.Date) = strftime('%Y-%m', 'now') AND sales.CustomerID != 1 GROUP BY sales.CustomerID ORDER BY Sales DESC LIMIT 1`;
+    let sql_for_top_customer_prev_month = `SELECT sum(sales.AmountReceived) AS 'Sales', sales.CustomerID, Customers.CustomerFirstName from sales INNER JOIN Customers ON Customers.CustomerID = sales.CustomerID WHERE strftime('%Y-%m', sales.Date) = strftime('%Y-%m', 'now', '-1 month') AND sales.CustomerID != 1 GROUP BY sales.CustomerID ORDER BY Sales DESC LIMIT 1`;
+    let sql_for_top_product_curr_month = `SELECT SaleLines.ItemNumber, Items.ItemDescription, sum(SaleLines.Total) AS 'TotalSales' From (SaleLines INNER JOIN Items ON SaleLines.ItemNumber = Items.ItemNumber) INNER JOIN Sales ON Sales.SaleNo = SaleLines.SaleNo WHERE strftime('%Y-%m', Sales.Date) = strftime('%Y-%m', 'now') GROUP BY SaleLines.ItemNumber ORDER BY TotalSales DESC LIMIT 1`;
+    let sql_for_top_product_prev_month = `SELECT SaleLines.ItemNumber, Items.ItemDescription, sum(SaleLines.Total) AS 'TotalSales' From (SaleLines INNER JOIN Items ON SaleLines.ItemNumber = Items.ItemNumber) INNER JOIN Sales ON Sales.SaleNo = SaleLines.SaleNo WHERE strftime('%Y-%m', Sales.Date) = strftime('%Y-%m', 'now', '-1 month') GROUP BY SaleLines.ItemNumber ORDER BY TotalSales DESC LIMIT 1`;
     let data = {};
     const setData = () => {
         data['todaySales'] = todaySales;
@@ -139,8 +147,12 @@ router.get("/DashboardData", (req, res) => {
         data['thisMonthSales'] = thisMonthSales;
         data['thisYearSales'] = thisYearSales;
         data['monthwiseSales'] = monthlySales;
+        data['top_customer_last_month'] = top_customer_last_month;
+        data['top_customer_this_month'] = top_customer_this_month;
+        data['top_product_last_month'] = top_product_last_month;
+        data['top_product_this_month'] = top_product_this_month;
         data = JSON.stringify(data);
-        console.log(data);
+        //console.log(data);
         res.send(data);
     }
         db.serialize(() => {
@@ -185,6 +197,38 @@ router.get("/DashboardData", (req, res) => {
                 }
                 else {
                     monthlySales = rows;
+                }
+            })
+            db.get(sql_for_top_customer_prev_month, [], (err, row) => {
+                if(err) {
+                    res.status(500);
+                }
+                else {
+                    top_customer_last_month = row;
+                }
+            })
+            db.get(sql_for_top_customer_curr_month, [], (err, row) => {
+                if(err) {
+                    res.status(500);
+                }
+                else {
+                    top_customer_this_month = row;
+                }
+            })
+            db.get(sql_for_top_product_curr_month, [], (err, row) => {
+                if(err) {
+                    res.status(500);
+                }
+                else {
+                    top_product_this_month = row;
+                }
+            })
+            db.get(sql_for_top_product_prev_month, [], (err, row) => {
+                if(err) {
+                    res.status(500);
+                }
+                else {
+                    top_product_last_month = row;
                     setData();
                 }
             })

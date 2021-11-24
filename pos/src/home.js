@@ -2,7 +2,7 @@ import React from "react";
 import NavigationBar from "./navbar";
 import Card from 'react-bootstrap/Card';
 import { useState, useEffect } from "react";
-import {Bar, defaults} from 'react-chartjs-2';
+import { Bar, defaults } from 'react-chartjs-2';
 
 defaults.plugins.legend.position = 'bottom';
 
@@ -13,7 +13,27 @@ const Home = () => {
         thisWeekSales: 0,
         thisMonthSales: 0,
         thisYearSales: 0,
-        monthwiseSales: []
+        monthwiseSales: [],
+        top_customer_last_month: {
+            Sales: 0,
+            CustomerID: "",
+            CustomerFirstName: ""
+        },
+        top_customer_this_month: {
+            Sales: 0,
+            CustomerID: "",
+            CustomerFirstName: ""
+        },
+        top_product_last_month: {
+            TotalSales: 0,
+            ItemNumber: "",
+            ItemDescription: ""
+        },
+        top_product_this_month: {
+            TotalSales: 0,
+            ItemNumber: "",
+            ItemDescription: ""
+        }
     })
     async function getData() {
         //console.log("Request Sent");
@@ -29,11 +49,11 @@ const Home = () => {
 
     const SalesBoard = () => {
         return (
-            <Card>
+            <Card className="flex-fill">
                 <Card.Header><h3>Sales</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
-                        <div className="p-2 bg-light flex-fill card-border">
+                        <div className="p-2 bg-info text-white flex-fill card-border">
                             <Card.Body>
                                 <Card.Title>Today</Card.Title>
                                 <Card.Text>
@@ -41,27 +61,89 @@ const Home = () => {
                                 </Card.Text>
                             </Card.Body>
                         </div>
-                        <div className="p-2 bg-light flex-fill card-border">
+                        <div className="p-2 bg-secondary text-white flex-fill card-border">
                             <Card.Body>
                                 <Card.Title>This Week</Card.Title>
                                 <Card.Text>
-                                PKR {DashboardData.thisWeekSales}
+                                    PKR {DashboardData.thisWeekSales}
                                 </Card.Text>
                             </Card.Body></div>
                     </div>
                     <div className="d-flex">
-                        <div className="p-2 bg-light flex-fill card-border">
+                        <div className="p-2 bg-primary text-white flex-fill card-border">
                             <Card.Body>
                                 <Card.Title>This Month</Card.Title>
                                 <Card.Text>
-                                PKR {DashboardData.thisMonthSales}
+                                    PKR {DashboardData.thisMonthSales}
                                 </Card.Text>
                             </Card.Body></div>
-                        <div className="p-2 bg-light flex-fill card-border">
+                        <div className="p-2 bg-success text-white flex-fill card-border">
                             <Card.Body>
                                 <Card.Title>This Year</Card.Title>
                                 <Card.Text>
-                                PKR {DashboardData.thisYearSales}
+                                    PKR {DashboardData.thisYearSales}
+                                </Card.Text>
+                            </Card.Body></div>
+                    </div>
+                </Card.Body>
+            </Card>
+        )
+    }
+
+    const CustomerOfthePeriod = () => {
+        return (
+            <Card className="flex-fill">
+                <Card.Header><h3>Top Customers</h3></Card.Header>
+                <Card.Body>
+                    <div className="d-flex">
+                        <div className="p-2 bg-warning text-white flex-fill card-border">
+                            <Card.Body>
+                                <Card.Title>Last Month</Card.Title>
+                                <Card.Text>
+                                    Customer Name: {DashboardData.top_customer_last_month.CustomerFirstName}<br />
+                                    Customer ID: {DashboardData.top_customer_last_month.CustomerID}<br />
+                                    Value: PKR {DashboardData.top_customer_last_month.Sales}
+                                </Card.Text>
+                            </Card.Body>
+                        </div>
+                        <div className="p-2 bg-danger text-white flex-fill card-border">
+                            <Card.Body>
+                                <Card.Title>This Month</Card.Title>
+                                <Card.Text>
+                                    Customer Name: {DashboardData.top_customer_this_month.CustomerFirstName}<br />
+                                    Customer ID: {DashboardData.top_customer_this_month.CustomerID}<br />
+                                    Value: PKR {DashboardData.top_customer_this_month.Sales}
+                                </Card.Text>
+                            </Card.Body></div>
+                    </div>
+                </Card.Body>
+            </Card>
+        )
+    }
+
+    const TopProducts = () => {
+        return (
+            <Card className="flex-fill">
+                <Card.Header><h3>Top Products</h3></Card.Header>
+                <Card.Body>
+                    <div className="d-flex">
+                        <div className="p-2 bg-warning text-white flex-fill card-border">
+                            <Card.Body>
+                                <Card.Title>Last Month</Card.Title>
+                                <Card.Text>
+                                    Product Name: {DashboardData.top_product_last_month.ItemDescription}<br />
+                                    Product ID: {DashboardData.top_product_last_month.ItemNumber}<br />
+                                    Value: PKR {DashboardData.top_product_last_month.TotalSales}
+                                </Card.Text>
+                            </Card.Body>
+                        </div>
+                        <div className="p-2 bg-danger text-white flex-fill card-border">
+                            <Card.Body>
+                                <Card.Title>This Month</Card.Title>
+                                <Card.Text>
+                                    Product Name: {DashboardData.top_product_this_month.ItemDescription}<br />
+                                    Product ID: {DashboardData.top_product_this_month.ItemNumber}<br />
+                                    Value: PKR {DashboardData.top_product_this_month.TotalSales}
                                 </Card.Text>
                             </Card.Body></div>
                     </div>
@@ -138,10 +220,10 @@ const Home = () => {
         let sales = data.map((row) => row.MonthlySales);
         //console.log(labels);
         //console.log(sales);
-        return(
+        return (
             <div>
                 <Bar
-                    data = {{
+                    data={{
                         labels: labels,
                         datasets: [{
                             label: 'Total Sales',
@@ -176,11 +258,11 @@ const Home = () => {
                             ],
                             borderWidth: 3
                         },
-                    ]
+                        ]
                     }}
-                    height = {400}
-                    width = {600}
-                    options = {{
+                    height={400}
+                    width={600}
+                    options={{
                         maintainAspectRatio: false,
                     }}
                 />
@@ -193,8 +275,12 @@ const Home = () => {
         <>
             <NavigationBar />
             <div className="container">
-                <SalesBoard />
-                <BarChart/>
+                <div className="d-flex">
+                    <SalesBoard />
+                    <CustomerOfthePeriod />
+                    <TopProducts />
+                </div>
+                <BarChart />
             </div>
         </>
     );

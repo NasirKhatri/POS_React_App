@@ -89,6 +89,7 @@ hr {
 
 .keypad {
   margin-top: 8px;
+  cursor: pointer;
 }
 
 .table td {
@@ -98,6 +99,11 @@ hr {
 
 .table tr {
   border: none;
+}
+
+.keypad-button:hover {
+  background-color: darkgrey;
+  color: white;
 }
 
 .home-link {
