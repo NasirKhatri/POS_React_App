@@ -49,11 +49,11 @@ const Home = () => {
 
     const SalesBoard = () => {
         return (
-            <Card className="flex-fill">
+            <Card className="flex-even">
                 <Card.Header><h3>Sales</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
-                        <div className="p-2 bg-info text-white flex-fill card-border">
+                        <div className="p-2 bg-info text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>Today</Card.Title>
                                 <Card.Text>
@@ -61,7 +61,7 @@ const Home = () => {
                                 </Card.Text>
                             </Card.Body>
                         </div>
-                        <div className="p-2 bg-secondary text-white flex-fill card-border">
+                        <div className="p-2 bg-secondary text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>This Week</Card.Title>
                                 <Card.Text>
@@ -70,14 +70,14 @@ const Home = () => {
                             </Card.Body></div>
                     </div>
                     <div className="d-flex">
-                        <div className="p-2 bg-primary text-white flex-fill card-border">
+                        <div className="p-2 bg-primary text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>This Month</Card.Title>
                                 <Card.Text>
                                     PKR {DashboardData.thisMonthSales}
                                 </Card.Text>
                             </Card.Body></div>
-                        <div className="p-2 bg-success text-white flex-fill card-border">
+                        <div className="p-2 bg-success text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>This Year</Card.Title>
                                 <Card.Text>
@@ -92,27 +92,27 @@ const Home = () => {
 
     const CustomerOfthePeriod = () => {
         return (
-            <Card className="flex-fill">
+            <Card className="flex-even">
                 <Card.Header><h3>Top Customers</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
-                        <div className="p-2 bg-warning text-white flex-fill card-border">
+                        <div className="p-2 bg-warning text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>Last Month</Card.Title>
                                 <Card.Text>
-                                    Customer Name: {DashboardData.top_customer_last_month.CustomerFirstName}<br />
-                                    Customer ID: {DashboardData.top_customer_last_month.CustomerID}<br />
-                                    Value: PKR {DashboardData.top_customer_last_month.Sales}
+                                    Name: {DashboardData.top_customer_last_month.CustomerFirstName}<br />
+                                    ID: {DashboardData.top_customer_last_month.CustomerID}<br />
+                                    PKR {DashboardData.top_customer_last_month.Sales}
                                 </Card.Text>
                             </Card.Body>
                         </div>
-                        <div className="p-2 bg-danger text-white flex-fill card-border">
+                        <div className="p-2 bg-danger text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>This Month</Card.Title>
                                 <Card.Text>
-                                    Customer Name: {DashboardData.top_customer_this_month.CustomerFirstName}<br />
-                                    Customer ID: {DashboardData.top_customer_this_month.CustomerID}<br />
-                                    Value: PKR {DashboardData.top_customer_this_month.Sales}
+                                    Name: {DashboardData.top_customer_this_month.CustomerFirstName}<br />
+                                    ID: {DashboardData.top_customer_this_month.CustomerID}<br />
+                                    PKR {DashboardData.top_customer_this_month.Sales}
                                 </Card.Text>
                             </Card.Body></div>
                     </div>
@@ -123,27 +123,27 @@ const Home = () => {
 
     const TopProducts = () => {
         return (
-            <Card className="flex-fill">
+            <Card className="flex-even">
                 <Card.Header><h3>Top Products</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
-                        <div className="p-2 bg-warning text-white flex-fill card-border">
+                        <div className="p-2 bg-warning text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>Last Month</Card.Title>
                                 <Card.Text>
-                                    Product Name: {DashboardData.top_product_last_month.ItemDescription}<br />
-                                    Product ID: {DashboardData.top_product_last_month.ItemNumber}<br />
-                                    Value: PKR {DashboardData.top_product_last_month.TotalSales}
+                                    Name: {DashboardData.top_product_last_month.ItemDescription}<br />
+                                    ID: {DashboardData.top_product_last_month.ItemNumber}<br />
+                                    PKR {DashboardData.top_product_last_month.TotalSales}
                                 </Card.Text>
                             </Card.Body>
                         </div>
-                        <div className="p-2 bg-danger text-white flex-fill card-border">
+                        <div className="p-2 bg-danger text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>This Month</Card.Title>
                                 <Card.Text>
-                                    Product Name: {DashboardData.top_product_this_month.ItemDescription}<br />
-                                    Product ID: {DashboardData.top_product_this_month.ItemNumber}<br />
-                                    Value: PKR {DashboardData.top_product_this_month.TotalSales}
+                                    Name: {DashboardData.top_product_this_month.ItemDescription}<br />
+                                    ID: {DashboardData.top_product_this_month.ItemNumber}<br />
+                                    PKR {DashboardData.top_product_this_month.TotalSales}
                                 </Card.Text>
                             </Card.Body></div>
                     </div>

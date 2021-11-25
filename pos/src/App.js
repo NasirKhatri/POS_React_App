@@ -4,6 +4,9 @@ import Home from "./home";
 import Sale from "./sale";
 //import Category from "./category";
 import Check from "./check";
+import AddCustomer from "./addCustomer";
+import AddItem from "./addItem";
+import AddCategory from "./addCategory";
 
 function App() {
   async function get_customers() {
@@ -28,6 +31,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Sale" element={<Sale />} />
         {/*<Route path="/Sale/:Category" element={<Category />}/>*/}
+        <Route path="/Add_Customer" element={<AddCustomer/>}/>
+        <Route path="/Add_Item" element={<AddItem/>}/>
+        <Route path="/Add_Category" element={<AddCategory/>}/>
         <Route path="/Check" element={<Check />} />
       </Routes>
     </div>

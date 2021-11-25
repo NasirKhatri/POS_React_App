@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-//import NavDropdown from 'react-bootstrap/NavDropdown';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const NavigationBar = () => {
   return (
@@ -14,16 +14,15 @@ const NavigationBar = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="http://localhost:3000/Sale">POS</Nav.Link>
-            {/*<Nav.Link href="#pricing">Pricing</Nav.Link>
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+            <NavDropdown title="SETUP" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="http://localhost:3000/Add_Customer">Add Customer</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-  </NavDropdown>*/}
+              <NavDropdown.Item href="http://localhost:3000/Add_Item">Add Item</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="http://localhost:3000/Add_Category">Add Category</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
-         {/*} <Nav>
+          {/*} <Nav>
             <Nav.Link href="#deets">More deets</Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
               Dank memes

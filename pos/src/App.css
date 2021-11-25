@@ -118,3 +118,11 @@ hr {
   border-color: black;
   margin: 5px;
 }
+
+.flex-even {
+  flex: 1;
+}
+
+.text-alignment-left {
+  text-align: left;
+}
