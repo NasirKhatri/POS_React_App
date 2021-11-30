@@ -2,6 +2,23 @@ const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
+const fileUpload = require('express-fileupload');
+const multer = require('multer');
+//const upload = multer({dest: 'C:/Data/Nasir/Learning/Practice/React_App/pos/src/images/'});
+var path = require('path');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'C:/Data/Nasir/Learning/Practice/React_App/pos/public/images/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname.replace(".", "_") + Date.now() + path.extname(file.originalname)) //Appending extension
+    }
+  })
+  
+  var upload = multer({ storage: storage });
+
+
 
 let db = new sqlite3.Database('.././pos/db/pos.db', (err) => {
     if (err) {
@@ -234,7 +251,25 @@ router.get("/DashboardData", (req, res) => {
             })
 
         })
-})
+});
+
+router.post("/AddCategory", upload.single('image'), (req, res) => {
+    //let extension = path.extname(req.file.originalname);
+    //console.log(req.file);
+    //console.log(req.body);
+    let imageSource = `images/${req.file.filename}`;
+    let itemCategory = req.body.name;
+    let sql = `INSERT INTO ItemCategories (ItemCategoryDescription, ImageSource) VALUES('${itemCategory}', '${imageSource}')`;
+    db.run(sql, [], (err) => {
+        if(err) {
+            console.log(err.message);
+            res.status(500).send("Category Could not added");
+        }
+        else {
+            res.status(200).send("Category have been added");
+        }
+    })
+      });
 
 
 

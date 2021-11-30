@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import NavigationBar from "./navbar";
-import { Button, Modal, Row, Col } from 'react-bootstrap';
+import { Button, Row, Col, ProgressBar } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { useRef } from "react";
+import axios from "axios";
 
 const AddCategory = () => {
-    const categoryName = useRef("");
-    const categoryImage = useRef(0);
+    const [categoryName, setcategoryName] = useState()
+    const [categoryImage, setcategoryImage] = useState("");
+    const [uploadProgress, setUploadProgress] = useState();
+
+    async function PostCategory(e) {
+        e.preventDefault();
+
+        //checking file type and size
+        categoryImage.type.slice(0, 5) != "image" ? alert("Only Images are acceptable") :
+            categoryImage.size > 1024 * 1024 ? alert("Oversized Image File") :
+                console.log("Continue");
+        console.log(categoryImage);
+        console.log(categoryName);
+
+        let data = new FormData();
+        data.append('name', categoryName);
+        data.append('image', categoryImage, categoryImage.name);
+
+        axios.post('AddCategory', data, {
+            onUploadProgress: ProgressEvent => {
+                console.log("Upload Progress: " + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%')
+            }
+        }
+        )
+            .then(response => console.log("Response Received"));
+
+    }
     return (
         <div>
             <NavigationBar />
@@ -14,15 +40,15 @@ const AddCategory = () => {
                 <h3>Add Category</h3>
             </div>
             <div className="container">
-                <form onSubmit={(e) => e.preventDefault()} className="text-alignment-left">
+                <form onSubmit={(e) => PostCategory(e)} id="AddCategory" className="text-alignment-left">
                     <Row className="mb-3">
                         <Form.Group as={Col} className="mb-3" controlId="formGridcategoryName">
                             <Form.Label>Category</Form.Label>
-                            <Form.Control ref={categoryName} type="text" required />
+                            <Form.Control onChange={(e) => setcategoryName(e.target.value)} type="text" required />
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label>Image</Form.Label>
-                            <Form.Control ref={categoryImage} type="file" required />
+                            <Form.Control onChange={(e) => setcategoryImage(e.target.files[0])} name="categoryImage" type="file" accept="image/*" required />
                         </Form.Group>
                     </Row>
                     <Button type="submit" variant="primary">
@@ -32,6 +58,8 @@ const AddCategory = () => {
             </div>
         </div>
     )
+
+
 }
 
 export default AddCategory;
