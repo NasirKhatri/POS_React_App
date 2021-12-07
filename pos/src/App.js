@@ -16,14 +16,25 @@ function App() {
       sessionStorage.setItem("customers", JSON.stringify(responseData));
       //console.log(responseData);
     }
-    else {;
+    else {
       //console.log(JSON.parse(sessionStorage.customers));
     }
   }
 
+  async function get_categories() {
+    if(!sessionStorage.categories) {
+      const response = await fetch("Categories");
+      const responseData = await response.json();
+      sessionStorage.setItem("categories", JSON.stringify(responseData));
+      console.log(responseData);
+    }
+    else {
 
+    }
+  }
 
   get_customers();
+  get_categories();
 
   return (
     <div>

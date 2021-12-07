@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import NavigationBar from "./navbar";
-import { Button, Row, Col, ProgressBar } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import { useRef } from "react";
 import axios from "axios";
 
 const AddCategory = () => {
     const [categoryName, setcategoryName] = useState()
     const [categoryImage, setcategoryImage] = useState("");
-    const [uploadProgress, setUploadProgress] = useState();
+    //const [uploadProgress, setUploadProgress] = useState();
+
+    async function reset_categories() {
+        sessionStorage.removeItem("categories");
+        if(!sessionStorage.categories) {
+          const response = await fetch("Categories");
+          const responseData = await response.json();
+          sessionStorage.setItem("categories", JSON.stringify(responseData));
+          console.log(responseData);
+        }
+        else {
+    
+        }
+      }
 
     async function PostCategory(e) {
         e.preventDefault();
@@ -17,8 +29,8 @@ const AddCategory = () => {
         categoryImage.type.slice(0, 5) != "image" ? alert("Only Images are acceptable") :
             categoryImage.size > 1024 * 1024 ? alert("Oversized Image File") :
                 console.log("Continue");
-        console.log(categoryImage);
-        console.log(categoryName);
+        //console.log(categoryImage);
+        //console.log(categoryName);
 
         let data = new FormData();
         data.append('name', categoryName);
@@ -30,7 +42,13 @@ const AddCategory = () => {
             }
         }
         )
-            .then(response => console.log("Response Received"));
+            .then(response => {
+                console.log(response);
+                reset_categories();
+                //sessionStorage.setItem("categories", response);
+                alert("Category Have Been Added");
+                window.location.reload(false);
+            });
 
     }
     return (

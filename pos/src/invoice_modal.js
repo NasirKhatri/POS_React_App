@@ -26,7 +26,7 @@ const Invoice_modal = (props) => {
     let yyyy = today.getFullYear();
     // to set default value of input type date yyyy-mm-dd format is required
     let today_date = yyyy + '-' + mm + '-' + dd;
-    console.log(today_date);
+    //console.log(today_date);
     
     if (props.active_invoice === 1) {
         props.invoice1_details.forEach(element => {

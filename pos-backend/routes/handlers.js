@@ -2,7 +2,7 @@ const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
-const fileUpload = require('express-fileupload');
+//const fileUpload = require('express-fileupload');
 const multer = require('multer');
 //const upload = multer({dest: 'C:/Data/Nasir/Learning/Practice/React_App/pos/src/images/'});
 var path = require('path');
@@ -43,6 +43,20 @@ router.get("/Sale", (req, res) => {
 router.get("/Customers", (req, res) => {
     db.serialize(() => {
         db.all(`SELECT * FROM Customers`, [], (err, rows) => {
+            if (err) {
+                console.log("Error accured");
+                console.log(err.message);
+            }
+            else {
+                res.send(JSON.stringify(rows));
+            }
+        })
+    })
+});
+
+router.get("/Categories", (req, res) => {
+    db.serialize(() => {
+        db.all(`SELECT * FROM ItemCategories`, [], (err, rows) => {
             if (err) {
                 console.log("Error accured");
                 console.log(err.message);
@@ -229,7 +243,17 @@ router.get("/DashboardData", (req, res) => {
                     res.status(500);
                 }
                 else {
-                    top_customer_this_month = row;
+                    if(row) {
+                        top_customer_this_month = row;
+                    }
+                    else {
+                        top_customer_this_month = {
+                            Sales: 0,
+                            CustomerID: "",
+                            CustmoerFirstName: ""
+                        }
+                    }
+                    
                 }
             })
             db.get(sql_for_top_product_curr_month, [], (err, row) => {
@@ -237,7 +261,16 @@ router.get("/DashboardData", (req, res) => {
                     res.status(500);
                 }
                 else {
-                    top_product_this_month = row;
+                    if(row) {
+                        top_product_this_month = row;
+                    }
+                    else {
+                        top_product_this_month = {
+                            ItemNumber: "",
+                            ItemDescription: "",
+                            TotalSales: 0
+                        }
+                    }
                 }
             })
             db.get(sql_for_top_product_prev_month, [], (err, row) => {
@@ -249,6 +282,7 @@ router.get("/DashboardData", (req, res) => {
                     setData();
                 }
             })
+
 
         })
 });
@@ -266,11 +300,43 @@ router.post("/AddCategory", upload.single('image'), (req, res) => {
             res.status(500).send("Category Could not added");
         }
         else {
-            res.status(200).send("Category have been added");
+            res.status(200).send("Category Have Been Added");
         }
     })
       });
 
+router.post('/AddItem', upload.single('itemImage'), (req, res) => {
+    let imageSource = `images/${req.file.filename}`;
+    let ItemDescription = req.body.name;
+    let category = Number(req.body.category);
+    let price = Number(req.body.price);
+    let Discount = Number(req.body.discount);
+    //console.log(ItemDescription + category + price + Discount);
+    let sql = `INSERT INTO Items (ItemDescription, ItemImageSource, ItemCategoryID, Price, Discount) VALUES('${ItemDescription}', '${imageSource}', ${category}, ${price}, ${Discount})`;
+    //console.log(sql);
+    db.run(sql, [], (err) => {
+        if(err) {
+            console.log(err.message);
+            res.status(500).send("Item Could not added");
+        }
+        else {
+            res.status(200).send("Item have been added");
+        }
+    })
+      });
 
+router.post('/AddCustomer', (req, res) => {
+    let sql = `INSERT INTO Customers (CustomerFirstName, CustomerLastName, CustomerContactNo, CustomerEmailAddress, CustomerAddress, CustomerTown, CustomerCity) VALUES('${req.body.firstName}', '${req.body.lastName}', '${req.body.contactNumber}', '${req.body.email}', '${req.body.address}', '${req.body.town}', '${req.body.city}')`;
+    //console.log(req.body);
+    db.run(sql, [], (err) => {
+        if(err) {
+            console.log(err.message);
+            res.status(500).send("Customer Could not added");
+        }
+        else {
+            res.status(200).send("Customer have been added");
+        }
+    })
+})
 
 module.exports = router;
