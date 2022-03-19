@@ -235,7 +235,13 @@ router.get("/DashboardData", (req, res) => {
                     res.status(500);
                 }
                 else {
-                    top_customer_last_month = row;
+                    if(row) {
+                        top_customer_last_month = row;
+                    }
+                    else {
+                        top_customer_last_month = "";
+                    }
+                    
                 }
             })
             db.get(sql_for_top_customer_curr_month, [], (err, row) => {
@@ -278,8 +284,15 @@ router.get("/DashboardData", (req, res) => {
                     res.status(500);
                 }
                 else {
-                    top_product_last_month = row;
-                    setData();
+                    if(row) {
+                        top_product_last_month = row;
+                        setData();
+                    }
+                    else {
+                        top_product_last_month = "";
+                        setData();
+                    }
+ 
                 }
             })
 
