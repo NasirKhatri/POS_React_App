@@ -9,7 +9,7 @@ var path = require('path');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'C:/Data/Nasir/Learning/Practice/React_App/pos/public/images/')
+      cb(null, 'D:/Projects/POS_React_App/pos/public/images')
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname.replace(".", "_") + Date.now() + path.extname(file.originalname)) //Appending extension
