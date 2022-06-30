@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 //import { Link } from "react-router-dom";
 import NavigationBar from "./navbar";
 import Keypad from "./keypad";
 import OrderLines from "./orderlines";
 import Invoice_modal from "./invoice_modal";
+import { StoreContext } from "./App";
 
 const Sale = (props) => {
     const [data, setData] = useState([{ ItemCategoryID: " ", ItemCategoryDescription: " ", ImageSource: " " }]);
@@ -15,15 +16,15 @@ const Sale = (props) => {
         Price: " "
     }]);
     const [type, setType] = useState("Categories");
+
+    const storeData = useContext(StoreContext);
+
     //const [orderlines, setorderlines] = useState(invoice1_details);
     const [active_invoice, setactive_invoice] = useState(1);
     const [invoice1_details, setinvoice1_details] = useState([]);
     const [invoice2_details, setinvoice2_details] = useState([]);
     const [invoice3_details, setinvoice3_details] = useState([]);
     const [show, setShow] = useState(false);
-    useEffect(() => {
-        getData();
-    }, [type]);
 
     async function getData() {
         if (type === "Categories") {
@@ -38,6 +39,12 @@ const Sale = (props) => {
             setProducts(responseData);
         }
     }
+    
+    useEffect(() => {
+        getData();
+    }, [type]);
+
+
 
     function setInvoice(e, number) {
         e.target.parentElement.querySelectorAll(".active").forEach(e =>
@@ -46,7 +53,7 @@ const Sale = (props) => {
             setactive_invoice(number);
         }
 
-    function addOrder(ItemDetails) {
+    /*function addOrder(ItemDetails) {
         if(active_invoice === 1) {
             const itemIndex = invoice1_details.findIndex((item) => item.ItemNumber === ItemDetails.ItemNumber);
             if(itemIndex === -1) {
@@ -95,7 +102,7 @@ const Sale = (props) => {
             })
             }
         }
-    }
+    }*/
 
     if (type === "Categories") {
         return (
@@ -110,15 +117,7 @@ const Sale = (props) => {
                                 <button className="nav-item nav-link" onClick={(e) => setInvoice(e, 3)} id="invoice3-tab">Invoice 3</button>
                             </div>
                         </nav>
-                        <OrderLines active_invoice={active_invoice} 
-                        invoice1_details={invoice1_details} 
-                        invoice2_details={invoice2_details} 
-                        invoice3_details={invoice3_details}
-                        setinvoice1_details={setinvoice1_details} 
-                        setinvoice2_details={setinvoice2_details} 
-                        setinvoice3_details={setinvoice3_details}
-                        show={show}
-                        setShow={setShow}/>
+                        <OrderLines active_invoice={active_invoice} show={show} setShow={setShow}/>
                         <Keypad
                         active_invoice={active_invoice} 
                         invoice1_details={invoice1_details} 
@@ -178,15 +177,7 @@ const Sale = (props) => {
                                 <button className="nav-item nav-link" onClick={(e) => setInvoice(e, 3)} id="invoice3-tab">Invoice 3</button>
                             </div>
                         </nav>
-                        <OrderLines active_invoice={active_invoice} 
-                        invoice1_details={invoice1_details} 
-                        invoice2_details={invoice2_details} 
-                        invoice3_details={invoice3_details}
-                        setinvoice1_details={setinvoice1_details} 
-                        setinvoice2_details={setinvoice2_details} 
-                        setinvoice3_details={setinvoice3_details}
-                        show={show}
-                        setShow={setShow}/>
+                        <OrderLines active_invoice={active_invoice} show={show} setShow={setShow}/>
                         <Keypad
                         active_invoice={active_invoice} 
                         invoice1_details={invoice1_details} 
@@ -206,7 +197,7 @@ const Sale = (props) => {
                                 products.map((element) => {
                                     return (
                                         <div className="card" id={element.ItemNumber} style={{ width: '150px', height: '200px' }}
-                                            onClick={() => addOrder(element)}>
+                                            onClick={() => storeData.dispatchInvoice({type: 'increase', ItemNumber: element.ItemNumber, ItemDetails: element, active_invoice: active_invoice})}>
                                             <img className="card-img-top" src={element.ItemImageSource} alt="Card" />
                                             <div className="card-body">
                                                 <h6 className="card-title">{element.ItemDescription}</h6>

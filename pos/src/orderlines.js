@@ -1,11 +1,17 @@
 //import { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
-import {AiFillMinusCircle} from "react-icons/ai";
-import {AiFillPlusCircle} from "react-icons/ai";
+import { AiFillMinusCircle } from "react-icons/ai";
+import { AiFillPlusCircle } from "react-icons/ai";
+import { useContext } from "react";
+import { StoreContext } from "./App";
 
 
 const OrderLines = (props) => {
-    function clearInvoice() {
+    const storeData = useContext(StoreContext);
+    console.log(storeData.invoices);
+
+
+    /*function clearInvoice() {
         if (props.active_invoice === 1) {
             props.setinvoice1_details([]);
         }
@@ -15,21 +21,21 @@ const OrderLines = (props) => {
         else {
             props.setinvoice3_details([]);
         }
-    }
+    }*/
 
     const itemDetails = [];
     if (props.active_invoice === 1) {
-        props.invoice1_details.forEach(element => {
+        storeData.invoices.invoice1_details.forEach(element => {
             itemDetails.push(element);
         });
     }
     else if (props.active_invoice === 2) {
-        props.invoice2_details.forEach(element => {
+        storeData.invoices.invoice2_details.forEach(element => {
             itemDetails.push(element);
         });
     }
     else {
-        props.invoice3_details.forEach(element => {
+        storeData.invoices.invoice3_details.forEach(element => {
             itemDetails.push(element);
         });
     }
@@ -44,7 +50,7 @@ const OrderLines = (props) => {
     })
     let total = gross_price - discount;
 
-    function remove_orderline(ItemNumber) {
+    /*function remove_orderline(ItemNumber) {
         let ItemIndex;
         let tempArray;
         switch (props.active_invoice) {
@@ -76,9 +82,9 @@ const OrderLines = (props) => {
                     break;
                 }
         }
-    }
-    
-    function increase_qty(ItemNumber) {
+    }*/
+
+    /*function increase_qty(ItemNumber) {
         let ItemIndex;
         let tempArray;
         switch (props.active_invoice) {
@@ -145,7 +151,7 @@ const OrderLines = (props) => {
                 break;
             }
         }
-    }
+    }*/
 
     return (
         <div>
@@ -182,9 +188,9 @@ const OrderLines = (props) => {
                                         <input type="number" className="form-control" value={item.Price} />
                                     </div>
                                     <div className="form-row col-3">
-                                        <AiFillMinusCircle onClick={() => decrease_qty(item.ItemNumber)} className="inc-dec col"/>
+                                        <AiFillMinusCircle onClick={() => storeData.dispatchInvoice({ type: 'decrease', ItemNumber: item.ItemNumber, active_invoice: props.active_invoice })} className="inc-dec col" />
                                         <input type="number" className="form-control col-7" value={item.Qty} />
-                                        <AiFillPlusCircle onClick={() => increase_qty(item.ItemNumber)} className="inc-dec col"/>
+                                        <AiFillPlusCircle onClick={() => storeData.dispatchInvoice({ type: 'increase', ItemNumber: item.ItemNumber, active_invoice: props.active_invoice })} className="inc-dec col" />
                                     </div>
                                     <div className="col">
                                         <input type="number" className="form-control" value={item.Discount} />
@@ -193,7 +199,7 @@ const OrderLines = (props) => {
                                         <input type="number" readOnly className="form-control" value={Math.round(item.Price * item.Qty * (1 - item.Discount / 100))} />
                                     </div>
                                     <div className="col-0.7">
-                                        <FiTrash2 onClick={() => remove_orderline(item.ItemNumber)} />
+                                        <FiTrash2 onClick={() => storeData.dispatchInvoice({ type: 'delete', ItemNumber: item.ItemNumber, active_invoice: props.active_invoice })} />
                                     </div>
                                 </div>
                             </form>
@@ -201,9 +207,10 @@ const OrderLines = (props) => {
                     })
                 }
             </div>
+            
             <div className="d-flex bd-highlight invoice-details">
                 <div className="p-2 flex-fill bd-highlight">
-                    <button type="button" onClick={clearInvoice} className="btn btn-dark">Clear</button>
+                    <button type="button" onClick={() => storeData.dispatchInvoice({ type: 'clear', active_invoice: props.active_invoice })} className="btn btn-dark">Clear</button>
                 </div>
                 <div className="p-2 flex-fill bd-highlight">
                     <p>No of Products: {no_of_products}</p>
