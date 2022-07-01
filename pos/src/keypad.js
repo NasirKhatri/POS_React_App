@@ -3,39 +3,21 @@ import { StoreContext } from "./App";
 
 const Keypad = (props) => {
     const storeData = useContext(StoreContext);
+    
     function check_if_orderline() {
         switch(props.active_invoice) {
-            case 1: {
-                if(storeData.invoices.invoice1_details.length === 0) {
-                    alert("Please add Items");
-                }
-                else {
-                    props.setShow(true);
-                }
+            case 1: 
+                storeData.invoices.invoice1_details.length === 0 ? alert("Please add Items") : props.setShow(true);
                 break;
-            }
-            case 2: {
-                if(storeData.invoices.invoice2_details.length === 0) {
-                    alert("Please add Items");
-                }
-                else {
-                    props.setShow(true);
-                }
+            case 2: 
+                storeData.invoices.invoice2_details.length === 0 ? alert("Please add Items") : props.setShow(true);
                 break;
-            }
-            case 3: {
-                if(storeData.invoicesinvoice3_details.length === 0) {
-                    alert("Please add Items");
-                }
-                else {
-                    props.setShow(true);
-                }
+            case 3: 
+                storeData.invoices.invoice3_details.length === 0 ? alert("Please add Items") : props.setShow(true);
                 break;
-            }
-            default: {
+            default:
                 console.log("Breaking without doing anything");
                 break;
-            }
         }
     }
 
