@@ -1,8 +1,12 @@
+import { useContext } from "react";
+import { StoreContext } from "./App";
+
 const Keypad = (props) => {
+    const storeData = useContext(StoreContext);
     function check_if_orderline() {
         switch(props.active_invoice) {
             case 1: {
-                if(props.invoice1_details.length === 0) {
+                if(storeData.invoices.invoice1_details.length === 0) {
                     alert("Please add Items");
                 }
                 else {
@@ -11,7 +15,7 @@ const Keypad = (props) => {
                 break;
             }
             case 2: {
-                if(props.invoice2_details.length === 0) {
+                if(storeData.invoices.invoice2_details.length === 0) {
                     alert("Please add Items");
                 }
                 else {
@@ -20,7 +24,7 @@ const Keypad = (props) => {
                 break;
             }
             case 3: {
-                if(props.invoice3_details.length === 0) {
+                if(storeData.invoicesinvoice3_details.length === 0) {
                     alert("Please add Items");
                 }
                 else {
@@ -39,7 +43,7 @@ const Keypad = (props) => {
         <div className="keypad">
             <table className="table table-bordered">
                 <tr>
-                    <td className="col-1 keypad-button">C</td>
+                    <td className="col-1 keypad-button" onClick={() => storeData.dispatchInvoice({ type: 'clear', active_invoice: props.active_invoice })}>C</td>
                     <td className="col-1 keypad-button">1</td>
                     <td className="col-1 keypad-button">2</td>
                     <td className="col-1 keypad-button">3</td>

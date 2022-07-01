@@ -8,151 +8,32 @@ import { StoreContext } from "./App";
 
 const OrderLines = (props) => {
     const storeData = useContext(StoreContext);
-    console.log(storeData.invoices);
 
-
-    /*function clearInvoice() {
-        if (props.active_invoice === 1) {
-            props.setinvoice1_details([]);
-        }
-        else if (props.active_invoice === 2) {
-            props.setinvoice2_details([]);
-        }
-        else {
-            props.setinvoice3_details([]);
-        }
-    }*/
-
-    const itemDetails = [];
+    let itemDetails = [];
     if (props.active_invoice === 1) {
-        storeData.invoices.invoice1_details.forEach(element => {
-            itemDetails.push(element);
-        });
+        itemDetails = storeData.invoices.invoice1_details;
     }
     else if (props.active_invoice === 2) {
-        storeData.invoices.invoice2_details.forEach(element => {
-            itemDetails.push(element);
-        });
+        itemDetails = storeData.invoices.invoice2_details;
     }
     else {
-        storeData.invoices.invoice3_details.forEach(element => {
-            itemDetails.push(element);
-        });
+        itemDetails = storeData.invoices.invoice3_details;;
     }
+
     let no_of_products = itemDetails.length;
     let no_of_items_sold = 0;
     let gross_price = 0;
     let discount = 0;
-    itemDetails.forEach((item) => {
-        no_of_items_sold += item.Qty;
-        gross_price += item.Qty * item.Price;
-        discount += Math.round(item.Price * item.Qty * item.Discount / 100);
-    })
-    let total = gross_price - discount;
-
-    /*function remove_orderline(ItemNumber) {
-        let ItemIndex;
-        let tempArray;
-        switch (props.active_invoice) {
-            case 1:
-                {
-                    ItemIndex = props.invoice1_details.findIndex((item) => item.ItemNumber === ItemNumber);
-                    tempArray = props.invoice1_details;
-                    tempArray.splice(ItemIndex, 1);
-                    tempArray = Object.assign([], tempArray);
-                    props.setinvoice1_details(tempArray);
-                    break;
-                }
-            case 2:
-                {
-                    ItemIndex = props.invoice2_details.findIndex((item) => item.ItemNumber === ItemNumber);
-                    tempArray = props.invoice2_details;
-                    tempArray.splice(ItemIndex, 1);
-                    tempArray = Object.assign([], tempArray);
-                    props.setinvoice2_details(tempArray);
-                    break;
-                }
-            case 3:
-                {
-                    ItemIndex = props.invoice3_details.findIndex((item) => item.ItemNumber === ItemNumber);
-                    tempArray = props.invoice3_details;
-                    tempArray.splice(ItemIndex, 1);
-                    tempArray = Object.assign([], tempArray);
-                    props.setinvoice3_details(tempArray);
-                    break;
-                }
-        }
-    }*/
-
-    /*function increase_qty(ItemNumber) {
-        let ItemIndex;
-        let tempArray;
-        switch (props.active_invoice) {
-            case 1: {
-                ItemIndex = props.invoice1_details.findIndex((item) => item.ItemNumber === ItemNumber);
-                tempArray = props.invoice1_details;
-                tempArray[ItemIndex].Qty++;
-                tempArray = Object.assign([], tempArray);
-                props.setinvoice1_details(tempArray);
-                break;
-            }
-            case 2: {
-                ItemIndex = props.invoice2_details.findIndex((item) => item.ItemNumber === ItemNumber);
-                tempArray = props.invoice2_details;
-                tempArray[ItemIndex].Qty++;
-                tempArray = Object.assign([], tempArray);
-                props.setinvoice2_details(tempArray);
-                break;
-
-            }
-            case 3: {
-                ItemIndex = props.invoice3_details.findIndex((item) => item.ItemNumber === ItemNumber);
-                tempArray = props.invoice3_details;
-                tempArray[ItemIndex].Qty++;
-                tempArray = Object.assign([], tempArray);
-                props.setinvoice3_details(tempArray);
-                break;
-            }
-        }
+    let total = 0;
+    if(itemDetails.length > 0) {
+        itemDetails.forEach((item) => {
+            no_of_items_sold += item.Qty;
+            gross_price += item.Qty * item.Price;
+            discount += Math.round(item.Price * item.Qty * item.Discount / 100);
+        })
+        total = gross_price - discount;
     }
-
-    function decrease_qty(ItemNumber) {
-        let ItemIndex;
-        let tempArray;
-        switch (props.active_invoice) {
-            case 1: {
-                ItemIndex = props.invoice1_details.findIndex((item) => item.ItemNumber === ItemNumber);
-                tempArray = props.invoice1_details;
-                if(tempArray[ItemIndex].Qty > 1) {
-                    tempArray[ItemIndex].Qty--;
-                    tempArray = Object.assign([], tempArray);
-                    props.setinvoice1_details(tempArray);
-                }
-                break;
-            }
-            case 2: {
-                ItemIndex = props.invoice2_details.findIndex((item) => item.ItemNumber === ItemNumber);
-                tempArray = props.invoice2_details;
-                if(tempArray[ItemIndex].Qty > 1) {
-                tempArray[ItemIndex].Qty--;
-                tempArray = Object.assign([], tempArray);
-                props.setinvoice2_details(tempArray);
-                }
-                break;
-            }
-            case 3: {
-                ItemIndex = props.invoice3_details.findIndex((item) => item.ItemNumber === ItemNumber);
-                tempArray = props.invoice3_details;
-                if(tempArray[ItemIndex].Qty > 1) {
-                tempArray[ItemIndex].Qty--;
-                tempArray = Object.assign([], tempArray);
-                props.setinvoice3_details(tempArray);
-                }
-                break;
-            }
-        }
-    }*/
-
+    
     return (
         <div>
             <form>

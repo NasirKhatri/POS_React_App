@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-//import { Link } from "react-router-dom";
 import NavigationBar from "./navbar";
 import Keypad from "./keypad";
 import OrderLines from "./orderlines";
@@ -21,9 +20,6 @@ const Sale = (props) => {
 
     //const [orderlines, setorderlines] = useState(invoice1_details);
     const [active_invoice, setactive_invoice] = useState(1);
-    const [invoice1_details, setinvoice1_details] = useState([]);
-    const [invoice2_details, setinvoice2_details] = useState([]);
-    const [invoice3_details, setinvoice3_details] = useState([]);
     const [show, setShow] = useState(false);
 
     async function getData() {
@@ -53,57 +49,6 @@ const Sale = (props) => {
             setactive_invoice(number);
         }
 
-    /*function addOrder(ItemDetails) {
-        if(active_invoice === 1) {
-            const itemIndex = invoice1_details.findIndex((item) => item.ItemNumber === ItemDetails.ItemNumber);
-            if(itemIndex === -1) {
-                ItemDetails.Qty = 1;
-                ItemDetails = Object.assign({}, ItemDetails);
-                setinvoice1_details([...invoice1_details, ItemDetails]);
-            }
-            else {
-                setinvoice1_details((previousstate) => {
-                    const tempstate = [...previousstate];
-                    const obj = tempstate[itemIndex];
-                    obj.Qty++;
-                    return tempstate;
-                })
-            }
-        }
-        else if(active_invoice === 2) {
-            const itemIndex = invoice2_details.findIndex((item) => item.ItemNumber === ItemDetails.ItemNumber);
-            if(itemIndex === -1) {
-                ItemDetails.Qty = 1;
-                ItemDetails = Object.assign({}, ItemDetails);
-                setinvoice2_details([...invoice2_details, ItemDetails]);
-            }
-            else {
-                setinvoice2_details((previousstate) => {
-                    const tempstate = [...previousstate];
-                    const obj = tempstate[itemIndex];
-                    obj.Qty++;
-                    return tempstate;
-            })
-        }
-    }
-        else {
-            const itemIndex = invoice3_details.findIndex((item) => item.ItemNumber === ItemDetails.ItemNumber);
-            if(itemIndex === -1) {
-                ItemDetails.Qty = 1;
-                ItemDetails = Object.assign({}, ItemDetails);
-                setinvoice3_details([...invoice3_details, ItemDetails]);
-            }
-            else {
-                setinvoice3_details((previousstate) => {
-                    const tempstate = [...previousstate];
-                    const obj = tempstate[itemIndex];
-                    obj.Qty++;
-                    return tempstate;
-            })
-            }
-        }
-    }*/
-
     if (type === "Categories") {
         return (
             <div>
@@ -120,12 +65,6 @@ const Sale = (props) => {
                         <OrderLines active_invoice={active_invoice} show={show} setShow={setShow}/>
                         <Keypad
                         active_invoice={active_invoice} 
-                        invoice1_details={invoice1_details} 
-                        invoice2_details={invoice2_details} 
-                        invoice3_details={invoice3_details}
-                        setinvoice1_details={setinvoice1_details} 
-                        setinvoice2_details={setinvoice2_details} 
-                        setinvoice3_details={setinvoice3_details} 
                         show={show}
                         setShow={setShow}/>
                     </div>
@@ -150,12 +89,6 @@ const Sale = (props) => {
                     </div>
                     <Invoice_modal
                     active_invoice={active_invoice} 
-                    invoice1_details={invoice1_details} 
-                    invoice2_details={invoice2_details} 
-                    invoice3_details={invoice3_details}
-                    setinvoice1_details={setinvoice1_details} 
-                    setinvoice2_details={setinvoice2_details} 
-                    setinvoice3_details={setinvoice3_details} 
                     show={show}
                     setShow={setShow}
                     />
@@ -180,12 +113,6 @@ const Sale = (props) => {
                         <OrderLines active_invoice={active_invoice} show={show} setShow={setShow}/>
                         <Keypad
                         active_invoice={active_invoice} 
-                        invoice1_details={invoice1_details} 
-                        invoice2_details={invoice2_details} 
-                        invoice3_details={invoice3_details}
-                        setinvoice1_details={setinvoice1_details} 
-                        setinvoice2_details={setinvoice2_details} 
-                        setinvoice3_details={setinvoice3_details}
                         show={show}
                         setShow={setShow}/>
                     </div>
@@ -211,12 +138,6 @@ const Sale = (props) => {
                     </div>
                     <Invoice_modal
                     active_invoice={active_invoice} 
-                    invoice1_details={invoice1_details} 
-                    invoice2_details={invoice2_details} 
-                    invoice3_details={invoice3_details}
-                    setinvoice1_details={setinvoice1_details} 
-                    setinvoice2_details={setinvoice2_details} 
-                    setinvoice3_details={setinvoice3_details}
                     show={show}
                     setShow={setShow}
                     />

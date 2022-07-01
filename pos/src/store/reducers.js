@@ -9,30 +9,31 @@ const invoiceUpdateReducer = (state, action) => {
     let active_invoice = action.active_invoice;
     let tempArray;
     let ItemDetails;
+    let ItemIndex;
 
-    switch (active_invoice) {
-        case 1:
-            tempArray = Object.assign([], state.invoice1_details);
-            console.log(tempArray);
-            break;
-        case 2:
-            tempArray = Object.assign([], state.invoice2_details);
-            break;
-        case 3:
-            tempArray = Object.assign([], state.invoice3_details);
-            break;
+    if(action.type !== 'clear') {
+        switch (active_invoice) {
+            case 1:
+                tempArray = Object.assign([], state.invoice1_details);
+                break;
+            case 2:
+                tempArray = Object.assign([], state.invoice2_details);
+                break;
+            case 3:
+                tempArray = Object.assign([], state.invoice3_details);
+                break;
+        }
+    
+        ItemIndex = tempArray.findIndex((item) => item.ItemNumber === action.ItemNumber);
     }
 
-    let ItemIndex = tempArray.findIndex((item) => item.ItemNumber === action.ItemNumber);
-    console.log(ItemIndex);
-    //let tempArray = state;
+
     switch (action.type) {
         case increase:
             if(ItemIndex === -1) {
                 ItemDetails = action.ItemDetails;
                 ItemDetails.Qty = 1;
                 ItemDetails = Object.assign({}, ItemDetails);
-                console.log(ItemDetails);
                 break;
             }
             else {

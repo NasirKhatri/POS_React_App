@@ -1,12 +1,15 @@
 import { useRef, useState } from "react";
 import { Button, Modal, Row, Col } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
+import { useContext } from "react";
+import { StoreContext } from "./App";
 
 const Invoice_modal = (props) => {
+    const storeData = useContext(StoreContext);
     const [discount_type, setDiscount_type] = useState("Percentage");
     const [total_discount, settotal_Discount] = useState(0);
     const [received_amount, setReceived_amount] = useState(0);
-    const itemDetails = [];
+    let itemDetails;
 
     const customerID = useRef(0);
     const date = useRef(0);
@@ -29,19 +32,13 @@ const Invoice_modal = (props) => {
     //console.log(today_date);
     
     if (props.active_invoice === 1) {
-        props.invoice1_details.forEach(element => {
-            itemDetails.push(element);
-        });
+        itemDetails = storeData.invoices.invoice1_details;
     }
     else if (props.active_invoice === 2) {
-        props.invoice2_details.forEach(element => {
-            itemDetails.push(element);
-        });
+        itemDetails = storeData.invoices.invoice2_details;
     }
     else {
-        props.invoice3_details.forEach(element => {
-            itemDetails.push(element);
-        });
+        itemDetails = storeData.invoices.invoice3_details;
     }
     let customers = JSON.parse(sessionStorage.customers);
 
@@ -90,19 +87,19 @@ const Invoice_modal = (props) => {
         let data;
         if(props.active_invoice === 1) {
             data = {
-                orderlines: props.invoice1_details,
+                orderlines: storeData.invoices.invoice1_details,
                 salesummary: sale
             }
         }
         else if(props.active_invoice === 2) {
             data = {
-                orderlines: props.invoice2_details,
+                orderlines: storeData.invoices.invoice2_details,
                 salesummary: sale
             } 
         }
         else {
             data = {
-                orderlines: props.invoice3_details,
+                orderlines: storeData.invoices.invoice3_details,
                 salesummary: sale
             } 
         }
@@ -118,15 +115,7 @@ const Invoice_modal = (props) => {
         })
         if(response.status === 200) {
             handleClose();
-                if (props.active_invoice === 1) {
-                    props.setinvoice1_details([]);
-                }
-                else if (props.active_invoice === 2) {
-                    props.setinvoice2_details([]);
-                }
-                else {
-                    props.setinvoice3_details([]);
-                }
+            storeData.dispatchInvoice({ type: 'clear', active_invoice: props.active_invoice })
         }
         else {
             alert("Server not responded");
