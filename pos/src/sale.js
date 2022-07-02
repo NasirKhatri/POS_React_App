@@ -4,6 +4,8 @@ import Keypad from "./keypad";
 import OrderLines from "./orderlines";
 import Invoice_modal from "./invoice_modal";
 import { StoreContext } from "./App";
+import Grid from '@mui/material/Grid';
+import { Container } from "react-bootstrap";
 
 const Sale = (props) => {
     const [data, setData] = useState([{ ItemCategoryID: " ", ItemCategoryDescription: " ", ImageSource: " " }]);
@@ -49,10 +51,10 @@ const Sale = (props) => {
         setactive_invoice(number);
     }
 
-    return (
+return (
         <div>
             <NavigationBar />
-            <div className="d-flex flex-Wrap body">
+            <div className="d-flex flex-Wrap flex-column-reverse flex-lg-row body">
                 <div className="d-flex flex-column Order_details">
                     <nav>
                         <div className="nav nav-tabs" id="nav-tab" role="tablist">
@@ -70,7 +72,7 @@ const Sale = (props) => {
                         <>
                             <h4><span className="home-link" onClick={() => setType("Categories")}>Home</span></h4>
                             <hr />
-                            <div className="d-flex flex-wrap justify-content-around">
+                            <div className="d-flex flex-wrap justify-content-center">
                                 {
                                     data.map((element) => {
                                         return (
@@ -89,7 +91,7 @@ const Sale = (props) => {
                         <>
                             <h4><span className="home-link" onClick={() => setType("Categories")}>Home</span><span>  || {type}</span></h4>
                             <hr />
-                            <div className="d-flex flex-wrap justify-content-around">
+                            <div className="d-flex flex-wrap justify-content-center">
                                 {
                                     products.map((element) => {
                                         return (
@@ -111,6 +113,7 @@ const Sale = (props) => {
                 <Invoice_modal active_invoice={active_invoice} show={show} setShow={setShow}/>
             </div>
         </div>
-    )
+
+        )
 }
 export default Sale;

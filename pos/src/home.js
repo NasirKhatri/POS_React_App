@@ -151,75 +151,11 @@ const Home = () => {
             </Card>
         )
     }
-    // npm install --save react-chartjs-2 chart.js
-    /*const BarChart = () => {
-        let data = DashboardData.monthwiseSales;
-        let labels = data.map((row) => row.Months);
-        let sales = data.map((row) => row.MonthlySales);
-        console.log(labels);
-        console.log(sales);
-        return(
-            <div>
-                <Bar
-                    data = {{
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                            label: '# of Votes',
-                            yAxisID: 'A',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 3
-                        },
-                    {
-                        label: 'Quantity',
-                        yAxisID: 'B',
-                        data: [100, 50, 125, 130, 50, 75],
-                        backgroundColor: 'lightblue',
-                        borderColor: 'orange',
-                        borderWidth: 3
-                    }]
-                    }}
-                    height = {400}
-                    width = {600}
-                    options = {{
-                        maintainAspectRatio: false,
-                        scales: {
-                            A: {
-                                type: 'linear',
-                                position: 'left',
-                            },
-                            B: {
-                                type: 'linear',
-                                position: 'right',
-                            }
-                        }
-                    }}
-                />
-            </div>
-        )
-    }*/
 
     const BarChart = () => {
         let data = DashboardData.monthwiseSales;
         let labels = data.map((row) => row.Months);
         let sales = data.map((row) => row.MonthlySales);
-        //console.log(labels);
-        //console.log(sales);
         return (
             <div>
                 <Bar

@@ -35,7 +35,7 @@ const OrderLines = (props) => {
     }
     
     return (
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column flexGrow">
             <form>
                 <div className="form-row">
                     <div className="col">

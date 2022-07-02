@@ -7,7 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const NavigationBar = () => {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="navbar">
       <Container>
         <Navbar.Brand href="/">CrispyChaska</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -22,12 +22,6 @@ const NavigationBar = () => {
               <NavDropdown.Item href="http://localhost:3000/Add_Category">Add Category</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          {/*} <Nav>
-            <Nav.Link href="#deets">More deets</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Dank memes
-            </Nav.Link>
-</Nav>*/}
         </Navbar.Collapse>
       </Container>
     </Navbar>
