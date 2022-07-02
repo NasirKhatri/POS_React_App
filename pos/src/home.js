@@ -49,7 +49,7 @@ const Home = () => {
 
     const SalesBoard = () => {
         return (
-            <Card className="flex-even">
+            <Card className="dashboard-card">
                 <Card.Header><h3>Sales</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
@@ -92,7 +92,7 @@ const Home = () => {
 
     const CustomerOfthePeriod = () => {
         return (
-            <Card className="flex-even">
+            <Card className="dashboard-card">
                 <Card.Header><h3>Top Customers</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
@@ -123,11 +123,11 @@ const Home = () => {
 
     const TopProducts = () => {
         return (
-            <Card className="flex-even">
+            <Card className="dashboard-card">
                 <Card.Header><h3>Top Products</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
-                        <div className="p-2 bg-warning text-white flex-even card-border">
+                        <div className="p-2 bg-info text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>Last Month</Card.Title>
                                 <Card.Text>
@@ -137,7 +137,7 @@ const Home = () => {
                                 </Card.Text>
                             </Card.Body>
                         </div>
-                        <div className="p-2 bg-danger text-white flex-even card-border">
+                        <div className="p-2 bg-primary text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>This Month</Card.Title>
                                 <Card.Text>
@@ -210,8 +210,8 @@ const Home = () => {
     return (
         <>
             <NavigationBar />
-            <div className="container">
-                <div className="d-flex">
+            <div className="container d-flex flex-column body justify-content-center">
+                <div className="d-flex flex-wrap">
                     <SalesBoard />
                     <CustomerOfthePeriod />
                     <TopProducts />
