@@ -3,6 +3,10 @@
   padding-top: 25px;
 }
 
+.body {
+  min-height: 94vh;
+}
+
 .box {
   display: inline-block;
   background-color: aquamarine;
@@ -21,7 +25,6 @@ h3 {
   display: inline-block;
   background-color: beige;
   width: 40%;
-  height: 680px;
   vertical-align: top;
   margin: 7px;
   padding: 7px;
@@ -73,7 +76,8 @@ hr {
 }
 
 .orderlines-section {
-  min-height: 225px;
+  flex-basis: 225px;
+  flex-grow: 1;
 }
 
 .bd-highlight {

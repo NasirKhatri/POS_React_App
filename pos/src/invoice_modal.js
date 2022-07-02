@@ -84,6 +84,11 @@ const Invoice_modal = (props) => {
             Balance: Number(balance.current.value)
         }
 
+        if(sale.Balance !==0) {
+            alert("Balance Must Be Zero");
+            return;
+        }
+
         let data;
         if(props.active_invoice === 1) {
             data = {
