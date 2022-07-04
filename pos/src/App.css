@@ -7,6 +7,13 @@
   min-height: 94vh;
 }
 
+.borderedDiv {
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 13px;
+}
+
 .flexGrow {
   flex: 1 1 auto;
 }

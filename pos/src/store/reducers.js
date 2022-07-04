@@ -2,10 +2,12 @@ const increase = 'increase';
 const decrease = 'decrease';
 const deleteitem = 'delete';
 const clear = 'clear';
+const login = 'login';
+const logout = 'logout';
 
 //const active_invoice = 1;
 
-const invoiceUpdateReducer = (state, action) => {
+export const invoiceUpdateReducer = (state, action) => {
     let active_invoice = action.active_invoice;
     let tempArray;
     let ItemDetails;
@@ -88,5 +90,15 @@ const invoiceUpdateReducer = (state, action) => {
     }
 }
 
-export default invoiceUpdateReducer;
+export const loginReducer = (state, action) => {
+    switch(action.type) {
+        case login:
+            return true;
+        case logout:
+            return false;
+    }
+}
+
+//export default invoiceUpdateReducer;
+
 

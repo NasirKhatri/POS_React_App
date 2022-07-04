@@ -1,13 +1,16 @@
 import React from "react";
+import { Navigate } from 'react-router-dom';
 import NavigationBar from "./navbar";
 import Card from 'react-bootstrap/Card';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Bar, defaults } from 'react-chartjs-2';
+import { StoreContext } from "./App";
 
 defaults.plugins.legend.position = 'bottom';
 
 
 const Home = () => {
+    const storeData = useContext(StoreContext);
     const [DashboardData, setDashboardData] = useState({
         todaySales: 0,
         thisWeekSales: 0,
@@ -157,7 +160,7 @@ const Home = () => {
         let labels = data.map((row) => row.Months);
         let sales = data.map((row) => row.MonthlySales);
         return (
-            <div>
+            <div className="borderedDiv">
                 <Bar
                     data={{
                         labels: labels,
@@ -206,20 +209,26 @@ const Home = () => {
         )
     }
 
-
-    return (
-        <>
-            <NavigationBar />
-            <div className="container d-flex flex-column body justify-content-center">
-                <div className="d-flex flex-wrap">
-                    <SalesBoard />
-                    <CustomerOfthePeriod />
-                    <TopProducts />
+    if(storeData.login) {
+        return (
+            <>
+                <NavigationBar />
+                <div className="container d-flex flex-column body justify-content-center">
+                    <div className="d-flex flex-wrap">
+                        <SalesBoard />
+                        <CustomerOfthePeriod />
+                        <TopProducts />
+                    </div>
+                    <BarChart />
                 </div>
-                <BarChart />
-            </div>
-        </>
-    );
+            </>
+        );
+    }
+    
+    else {
+        return (<Navigate to="/Login" />);
+    }
+
 }
 
 export default Home;

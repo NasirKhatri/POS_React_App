@@ -7,8 +7,10 @@ import Check from "./check";
 import AddCustomer from "./addCustomer";
 import AddItem from "./addItem";
 import AddCategory from "./addCategory";
+import Login from './login';
 import { useReducer, useEffect } from 'react';
-import invoiceUpdateReducer from "./store/reducers";
+import { invoiceUpdateReducer, loginReducer } from "./store/reducers";
+
 
 export const StoreContext = React.createContext();
 
@@ -34,6 +36,8 @@ async function get_categories() {
   }
 }
 
+let loginStatus = true;
+
 const all_invoice_details = {
   invoice1_details: [],
   invoice2_details: [],
@@ -47,22 +51,14 @@ function App() {
     get_categories();
   })
 
-  /*const invoice1 = [];
-  const invoice2 = [];
-  const invoice3 = [];*/
-
-
-
   const [invoice, dispatch] = useReducer(invoiceUpdateReducer, all_invoice_details);
-
-  /*const [invoice1_details, dispatchInvoice1] = useReducer(invoiceUpdateReducer, invoice1);
-  const [invoice2_details, dispatchInvoice2] = useReducer(invoiceUpdateReducer, invoice2);
-  const [invoice3_details, dispatchInvoice3] = useReducer(invoiceUpdateReducer, invoice3);*/
+  const [login, setLogin] = useReducer(loginReducer, loginStatus);
 
   return (
-    <StoreContext.Provider value={{ invoices: invoice, dispatchInvoice: dispatch }}>
+    <StoreContext.Provider value={{ invoices: invoice, dispatchInvoice: dispatch, login: login, dispatchLogin: setLogin }}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path='/Login' element={<Login/>}/>
           <Route path="/Sale" element={<Sale />} />
           <Route path="/Add_Customer" element={<AddCustomer />} />
           <Route path="/Add_Item" element={<AddItem />} />
