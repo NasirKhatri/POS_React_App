@@ -8,6 +8,7 @@ import AddCustomer from "./addCustomer";
 import AddItem from "./addItem";
 import AddCategory from "./addCategory";
 import Login from './login';
+import Signup from './signup';
 import { useReducer, useEffect } from 'react';
 import { invoiceUpdateReducer, loginReducer } from "./store/reducers";
 
@@ -36,7 +37,7 @@ async function get_categories() {
   }
 }
 
-let loginStatus = true;
+let loginStatus = false;
 
 const all_invoice_details = {
   invoice1_details: [],
@@ -59,6 +60,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path='/Login' element={<Login/>}/>
+          <Route path='/Signup' element={<Signup/>}/>
           <Route path="/Sale" element={<Sale />} />
           <Route path="/Add_Customer" element={<AddCustomer />} />
           <Route path="/Add_Item" element={<AddItem />} />
