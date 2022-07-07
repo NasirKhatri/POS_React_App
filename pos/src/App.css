@@ -7,6 +7,20 @@
   min-height: 94vh;
 }
 
+.inputField {
+  height: 40px;
+}
+
+.formLabel {
+  text-align: left;
+  font-weight: bold;
+}
+
+.errorMessage {
+  text-align: left;
+  color: red;
+}
+
 .borderedDiv {
   border: 1px solid lightgrey;
   border-radius: 4px;
