@@ -24,6 +24,8 @@ export const invoiceUpdateReducer = (state, action) => {
             case 3:
                 tempArray = Object.assign([], state.invoice3_details);
                 break;
+            default:
+                break;
         }
     
         ItemIndex = tempArray.findIndex((item) => item.ItemNumber === action.ItemNumber);
@@ -86,6 +88,8 @@ export const invoiceUpdateReducer = (state, action) => {
             else {
                 return { ...state, invoice3_details: tempArray }
             }
+        default:
+            return state;
 
     }
 }
@@ -96,6 +100,8 @@ export const loginReducer = (state, action) => {
             return true;
         case logout:
             return false;
+        default:
+            return null;
     }
 }
 

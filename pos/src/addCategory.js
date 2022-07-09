@@ -29,7 +29,7 @@ const AddCategory = () => {
         e.preventDefault();
 
         //checking file type and size
-        categoryImage.type.slice(0, 5) != "image" ? alert("Only Images are acceptable") :
+        categoryImage.type.slice(0, 5) !== "image" ? alert("Only Images are acceptable") :
             categoryImage.size > 1024 * 1024 ? alert("Oversized Image File") :
                 console.log("Continue");
         //console.log(categoryImage);

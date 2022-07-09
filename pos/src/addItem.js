@@ -22,7 +22,7 @@ const AddItem = () => {
     async function PostItem(e) {
         e.preventDefault();
         //checking file type and size
-        itemImage.type.slice(0, 5) != "image" ? alert("Only Images are acceptable") :
+        itemImage.type.slice(0, 5) !== "image" ? alert("Only Images are acceptable") :
             itemImage.size > 1024 * 1024 ? alert("Oversized Image File") :
                 console.log("Continue");
 

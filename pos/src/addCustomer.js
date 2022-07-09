@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import NavigationBar from "./navbar";
 import { Button, Row, Col } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import axios from "axios";
 import { StoreContext } from "./App";
 
 const AddCustomer = () => {
