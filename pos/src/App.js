@@ -11,9 +11,12 @@ import Login from './login';
 import Signup from './signup';
 import { useReducer, useEffect } from 'react';
 import { invoiceUpdateReducer, loginReducer } from "./store/reducers";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 
 export const StoreContext = React.createContext();
+const queryClient = new QueryClient();
 
 async function get_customers() {
   if (!sessionStorage.customers) {
@@ -57,6 +60,7 @@ function App() {
 
   return (
     <StoreContext.Provider value={{ invoices: invoice, dispatchInvoice: dispatch, login: login, dispatchLogin: setLogin }}>
+      <QueryClientProvider client={queryClient}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path='/Login' element={<Login/>}/>
@@ -67,6 +71,8 @@ function App() {
           <Route path="/Add_Category" element={<AddCategory />} />
           <Route path="/Check" element={<Check />} />
         </Routes>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </StoreContext.Provider>
   );
 }
