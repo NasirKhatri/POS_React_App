@@ -6,6 +6,7 @@ const sqlite3 = require('sqlite3').verbose();
 const multer = require('multer');
 //const upload = multer({dest: 'C:/Data/Nasir/Learning/Practice/React_App/pos/src/images/'});
 var path = require('path');
+const bcrypt = require ('bcrypt');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -350,6 +351,54 @@ router.post('/AddCustomer', (req, res) => {
             res.status(200).send("Customer have been added");
         }
     })
+})
+
+router.post('/Signup', (req, res) => {
+    const saltRounds = 10;
+    const date = new Date();
+    const FirstName = req.body.FirstName;
+    const LastName = req.body.LastName;
+    const Email = req.body.Email;
+    const BrandName = req.body.BrandName;
+    let Password = req.body.Password;
+    const RegisteredOn = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    const LastUpdated = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+
+    //Check if User Already Exists
+    const sql1 = `SELECT Email from Clients WHERE Email = '${Email}'`;
+    db.get(sql1, [], (err, row) => {
+        if(err) {
+            res.status(500).send("Could not Registered");
+        }
+        else if(row) {
+            console.log(row);
+            res.status(500).send('User Already Exist');
+            console.log('User Already Exist');
+        }
+        else {
+            bcrypt.hash(Password, saltRounds, function(err, hash) {
+                Password = hash;
+                const sql2 = `INSERT INTO Clients (FirstName, LastName, Email, BrandName, Password, RegisteredOn, LastUpdated) VALUES('${FirstName}', '${LastName}', '${Email}', '${BrandName}', '${Password}', '${RegisteredOn}', '${LastUpdated}')`;
+                if(err) {
+                    res.status(500).send('Could not Registered');
+                }
+                else {
+                    db.run(sql2, [], (err) => {
+                        if(err) {
+                            console.log(err.message);
+                            res.status(500).send("Could not Registered");
+                        }
+                        else {
+                            res.status(200).send("Your have been registered please login");
+                        }
+                    })
+                }
+              });
+        }
+    })
+
+
+ 
 })
 
 module.exports = router;
