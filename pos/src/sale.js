@@ -19,7 +19,6 @@ const Sale = (props) => {
 
     const storeData = useContext(StoreContext);
 
-    //const [orderlines, setorderlines] = useState(invoice1_details);
     const [active_invoice, setactive_invoice] = useState(1);
     const [show, setShow] = useState(false);
 

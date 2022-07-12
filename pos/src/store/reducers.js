@@ -101,7 +101,7 @@ export const loginReducer = (state, action) => {
         case logout:
             return false;
         default:
-            return null;
+            return state;
     }
 }
 

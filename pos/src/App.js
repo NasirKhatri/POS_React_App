@@ -40,7 +40,7 @@ async function get_categories() {
   }
 }
 
-let loginStatus = false;
+const loginStatus = true;
 
 const all_invoice_details = {
   invoice1_details: [],
