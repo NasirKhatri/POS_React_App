@@ -39,10 +39,8 @@ const Home = () => {
         }
     })
     async function getData() {
-        //console.log("Request Sent");
         const response = await fetch("DashboardData");
         const responseData = await response.json();
-        //console.log(responseData);
         setDashboardData(responseData);
     }
 

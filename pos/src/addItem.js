@@ -17,7 +17,7 @@ const AddItem = () => {
     const [discount, setdiscount] = useState(0);
     const [itemImage, setitemImage] = useState("");
 
-    let categories = JSON.parse(sessionStorage.categories);
+    let categories = JSON.parse(localStorage.getItem('categories'));
 
     async function PostItem(e) {
         e.preventDefault();

@@ -17,10 +17,10 @@ const AddCustomer = () => {
     const [city, setcity] = useState("");
 
     async function reset_customers() {
-            sessionStorage.removeItem("Customers");
+            localStorage.removeItem("Customers");
           const response = await fetch("Customers");
           const responseData = await response.json();
-          sessionStorage.setItem("customers", JSON.stringify(responseData));
+          localStorage.setItem("customers", JSON.stringify(responseData));
           window.location.reload(false);
           alert("Customer Have Been Added");
         }

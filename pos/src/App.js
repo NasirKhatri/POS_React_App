@@ -18,27 +18,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 export const StoreContext = React.createContext();
 const queryClient = new QueryClient();
 
-async function get_customers() {
-  if (!sessionStorage.customers) {
-    const response = await fetch("Customers");
-    const responseData = await response.json();
-    sessionStorage.setItem("customers", JSON.stringify(responseData));
-  }
-  else {
-  }
-}
 
-async function get_categories() {
-  if (!sessionStorage.categories) {
-    const response = await fetch("Categories");
-    const responseData = await response.json();
-    sessionStorage.setItem("categories", JSON.stringify(responseData));
-    console.log(responseData);
-  }
-  else {
-
-  }
-}
 
 const initialLoginStatus = {
   Token: "",
@@ -71,10 +51,6 @@ const all_invoice_details = {
 
 function App() {
 
-  useEffect(() => {
-    get_customers();
-    get_categories();
-  })
 
   const [invoice, dispatch] = useReducer(invoiceUpdateReducer, all_invoice_details);
   const [login, setLogin] = useReducer(loginReducer, loginStatus);

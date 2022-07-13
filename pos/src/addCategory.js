@@ -13,11 +13,11 @@ const AddCategory = () => {
     //const [uploadProgress, setUploadProgress] = useState();
 
     async function reset_categories() {
-        sessionStorage.removeItem("categories");
-        if(!sessionStorage.categories) {
+        localStorage.removeItem("categories");
+        if(!localStorage.getItem('categories')) {
           const response = await fetch("Categories");
           const responseData = await response.json();
-          sessionStorage.setItem("categories", JSON.stringify(responseData));
+          localStorage.setItem("categories", JSON.stringify(responseData));
           console.log(responseData);
         }
         else {

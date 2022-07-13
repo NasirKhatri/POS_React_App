@@ -36,11 +36,36 @@ const Sale = (props) => {
         }
     }
 
+    async function get_customers() {
+        if (!localStorage.getItem('customers')) {
+          const response = await fetch("Customers");
+          const responseData = await response.json();
+          localStorage.setItem("customers", JSON.stringify(responseData));
+        }
+        else {
+        }
+      }
+      
+      async function get_categories() {
+        if (!localStorage.getItem('categories')) {
+          const response = await fetch("Categories");
+          const responseData = await response.json();
+          localStorage.setItem("categories", JSON.stringify(responseData));
+          console.log(responseData);
+        }
+        else {
+      
+        }
+      }
+
     useEffect(() => {
         getData();
     }, [type]);
 
-
+    useEffect(() => {
+        get_customers();
+        get_categories();
+      })
 
     function setInvoice(e, number) {
         e.target.parentElement.querySelectorAll(".active").forEach(e =>
@@ -109,7 +134,7 @@ const Sale = (props) => {
                             </>
                         }
                     </div>
-                    <Invoice_modal active_invoice={active_invoice} show={show} setShow={setShow}/>
+                    { show ? <Invoice_modal active_invoice={active_invoice} show={show} setShow={setShow}/> : <></> }
                 </div>
             </div>
     

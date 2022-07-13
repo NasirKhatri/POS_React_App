@@ -40,7 +40,7 @@ const Invoice_modal = (props) => {
     else {
         itemDetails = storeData.invoices.invoice3_details;
     }
-    let customers = JSON.parse(sessionStorage.customers);
+    let customers = JSON.parse(localStorage.getItem('customers'));
 
     let no_of_products = itemDetails.length;
     let no_of_items_sold = 0;

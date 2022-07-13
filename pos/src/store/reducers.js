@@ -101,8 +101,11 @@ export const loginReducer = (state, action) => {
             localStorage.removeItem('user');
             localStorage.setItem('user', JSON.stringify(action.user));
             return action.user;
-        case logout:
+        case logout: {
             localStorage.removeItem('user');
+            window.location.replace("/Login");
+            localStorage.removeItem('categories');
+            localStorage.removeItem('customers');
             return {
                 Token: "",
                 FirstName: "",
@@ -112,6 +115,7 @@ export const loginReducer = (state, action) => {
                 RegisteredOn: "",
                 Auth: false
             }
+        }
         default:
             return state;
     }
