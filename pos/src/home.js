@@ -209,7 +209,7 @@ const Home = () => {
         )
     }
 
-    if(storeData.login) {
+    if(storeData.login.Auth) {
         return (
             <>
                 <NavigationBar />

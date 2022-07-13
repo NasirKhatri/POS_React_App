@@ -49,7 +49,7 @@ const Sale = (props) => {
         setactive_invoice(number);
     }
 
-    if(storeData.login) {
+    if(storeData.login.Auth) {
         return (
             <div>
                 <NavigationBar />

@@ -431,6 +431,7 @@ router.post('/Login', (req, res) => {
                         Email: row.Email,
                         BrandName: row.BrandName,
                         RegisteredOn: row.RegisteredOn,
+                        Auth: true
                     }
                     res.status(200).send(user);
                 }

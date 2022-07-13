@@ -40,7 +40,28 @@ async function get_categories() {
   }
 }
 
-const loginStatus = true;
+const initialLoginStatus = {
+  Token: "",
+  FirstName: "",
+  LastName: "",
+  Email: "",
+  BrandName: "",
+  RegisteredOn: "",
+  Auth: false
+}
+
+let loginStatus = localStorage.getItem('user');
+//console.log(loginStatus);
+
+if(loginStatus) {
+  loginStatus = JSON.parse(localStorage.getItem('user'))
+}
+
+else {
+  loginStatus = initialLoginStatus;
+}
+
+//const loginStatus = JSON.parse(localStorage.getItem('user')) || initialLoginStatus;
 
 const all_invoice_details = {
   invoice1_details: [],

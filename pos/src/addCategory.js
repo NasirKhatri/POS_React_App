@@ -54,7 +54,7 @@ const AddCategory = () => {
             });
 
     }
-    if(storeData.login) {
+    if(storeData.login.Auth) {
         return (
             <div>
                 <NavigationBar />
