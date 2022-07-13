@@ -97,7 +97,10 @@ export const invoiceUpdateReducer = (state, action) => {
 export const loginReducer = (state, action) => {
     switch(action.type) {
         case login:
-            return true;
+            //console.log(action.user);
+            localStorage.removeItem('user');
+            localStorage.setItem('user', JSON.stringify(action.user));
+            return action.user;
         case logout:
             return false;
         default:

@@ -10,7 +10,7 @@ import { StoreContext } from "./App";
 const NavigationBar = () => {
   const storeData = useContext(StoreContext);
 
-  if (storeData.login) {
+  if (storeData.login.Auth) {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="navbar">
         <Container>

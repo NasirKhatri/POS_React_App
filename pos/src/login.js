@@ -30,8 +30,9 @@ const Login = () => {
     const mutation = useMutation(userLogin);
 
     if(mutation.isSuccess) {
-        storeData.dispatchLogin({type: 'login'});
-        console.log(storeData);
+        const userData = mutation.data.data;
+        storeData.dispatchLogin({type: 'login', user: userData});
+        //console.log(storeData);
     }
 
     if(storeData.login.Auth) {
