@@ -34,7 +34,7 @@ const Login = () => {
         console.log(storeData);
     }
 
-    if(storeData.login) {
+    if(storeData.login.Auth) {
         return (<Navigate to="/" />);
     }
 
