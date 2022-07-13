@@ -26,7 +26,7 @@ const NavigationBar = () => {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="http://localhost:3000/Add_Category">Add Category</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="http://localhost:3000/Sale">LOGOUT</Nav.Link>
+              <Nav.Link onClick={() => storeData.dispatchLogin({type: 'logout'})}>LOGOUT</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

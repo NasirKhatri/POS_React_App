@@ -102,7 +102,16 @@ export const loginReducer = (state, action) => {
             localStorage.setItem('user', JSON.stringify(action.user));
             return action.user;
         case logout:
-            return false;
+            localStorage.removeItem('user');
+            return {
+                Token: "",
+                FirstName: "",
+                LastName: "",
+                Email: "",
+                BrandName: "",
+                RegisteredOn: "",
+                Auth: false
+            }
         default:
             return state;
     }
