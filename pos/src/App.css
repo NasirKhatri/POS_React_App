@@ -3,6 +3,35 @@
   padding-top: 25px;
 }
 
+.body {
+  min-height: 94vh;
+}
+
+.inputField {
+  height: 40px;
+}
+
+.formLabel {
+  text-align: left;
+  font-weight: bold;
+}
+
+.errorMessage {
+  text-align: left;
+  color: red;
+}
+
+.borderedDiv {
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 13px;
+}
+
+.flexGrow {
+  flex: 1 1 auto;
+}
+
 .box {
   display: inline-block;
   background-color: aquamarine;
@@ -13,6 +42,16 @@
   
 }
 
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.dashboard-card {
+  flex: 1 0 250px;
+}
+
 h3 {
   margin: 0px;
 }
@@ -20,8 +59,7 @@ h3 {
 .Order_details {
   display: inline-block;
   background-color: beige;
-  width: 40%;
-  height: 680px;
+  flex: 1 1 50%;
   vertical-align: top;
   margin: 7px;
   padding: 7px;
@@ -30,7 +68,7 @@ h3 {
 .Categories {
   display: inline-block;
   background-color: rgb(211, 216, 212);
-  width: 60%;
+  flex: 1 1 50%;
   vertical-align: top;
   margin: 7px;
   padding: 7px;
@@ -73,7 +111,8 @@ hr {
 }
 
 .orderlines-section {
-  min-height: 225px;
+  flex-basis: 225px;
+  flex-grow: 1;
 }
 
 .bd-highlight {

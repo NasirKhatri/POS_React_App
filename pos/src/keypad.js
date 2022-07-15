@@ -1,37 +1,23 @@
+import { useContext } from "react";
+import { StoreContext } from "./App";
+
 const Keypad = (props) => {
+    const storeData = useContext(StoreContext);
+    
     function check_if_orderline() {
         switch(props.active_invoice) {
-            case 1: {
-                if(props.invoice1_details.length === 0) {
-                    alert("Please add Items");
-                }
-                else {
-                    props.setShow(true);
-                }
+            case 1: 
+                storeData.invoices.invoice1_details.length === 0 ? alert("Please add Items") : props.setShow(true);
                 break;
-            }
-            case 2: {
-                if(props.invoice2_details.length === 0) {
-                    alert("Please add Items");
-                }
-                else {
-                    props.setShow(true);
-                }
+            case 2: 
+                storeData.invoices.invoice2_details.length === 0 ? alert("Please add Items") : props.setShow(true);
                 break;
-            }
-            case 3: {
-                if(props.invoice3_details.length === 0) {
-                    alert("Please add Items");
-                }
-                else {
-                    props.setShow(true);
-                }
+            case 3: 
+                storeData.invoices.invoice3_details.length === 0 ? alert("Please add Items") : props.setShow(true);
                 break;
-            }
-            default: {
+            default:
                 console.log("Breaking without doing anything");
                 break;
-            }
         }
     }
 
@@ -39,7 +25,7 @@ const Keypad = (props) => {
         <div className="keypad">
             <table className="table table-bordered">
                 <tr>
-                    <td className="col-1 keypad-button">C</td>
+                    <td className="col-1 keypad-button" onClick={() => storeData.dispatchInvoice({ type: 'clear', active_invoice: props.active_invoice })}>C</td>
                     <td className="col-1 keypad-button">1</td>
                     <td className="col-1 keypad-button">2</td>
                     <td className="col-1 keypad-button">3</td>

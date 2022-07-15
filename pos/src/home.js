@@ -1,13 +1,16 @@
 import React from "react";
+import { Navigate } from 'react-router-dom';
 import NavigationBar from "./navbar";
 import Card from 'react-bootstrap/Card';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Bar, defaults } from 'react-chartjs-2';
+import { StoreContext } from "./App";
 
 defaults.plugins.legend.position = 'bottom';
 
 
 const Home = () => {
+    const storeData = useContext(StoreContext);
     const [DashboardData, setDashboardData] = useState({
         todaySales: 0,
         thisWeekSales: 0,
@@ -36,10 +39,8 @@ const Home = () => {
         }
     })
     async function getData() {
-        //console.log("Request Sent");
         const response = await fetch("DashboardData");
         const responseData = await response.json();
-        //console.log(responseData);
         setDashboardData(responseData);
     }
 
@@ -49,7 +50,7 @@ const Home = () => {
 
     const SalesBoard = () => {
         return (
-            <Card className="flex-even">
+            <Card className="dashboard-card">
                 <Card.Header><h3>Sales</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
@@ -92,7 +93,7 @@ const Home = () => {
 
     const CustomerOfthePeriod = () => {
         return (
-            <Card className="flex-even">
+            <Card className="dashboard-card">
                 <Card.Header><h3>Top Customers</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
@@ -123,11 +124,11 @@ const Home = () => {
 
     const TopProducts = () => {
         return (
-            <Card className="flex-even">
+            <Card className="dashboard-card">
                 <Card.Header><h3>Top Products</h3></Card.Header>
                 <Card.Body>
                     <div className="d-flex">
-                        <div className="p-2 bg-warning text-white flex-even card-border">
+                        <div className="p-2 bg-info text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>Last Month</Card.Title>
                                 <Card.Text>
@@ -137,7 +138,7 @@ const Home = () => {
                                 </Card.Text>
                             </Card.Body>
                         </div>
-                        <div className="p-2 bg-danger text-white flex-even card-border">
+                        <div className="p-2 bg-primary text-white flex-even card-border">
                             <Card.Body>
                                 <Card.Title>This Month</Card.Title>
                                 <Card.Text>
@@ -151,77 +152,13 @@ const Home = () => {
             </Card>
         )
     }
-    // npm install --save react-chartjs-2 chart.js
-    /*const BarChart = () => {
-        let data = DashboardData.monthwiseSales;
-        let labels = data.map((row) => row.Months);
-        let sales = data.map((row) => row.MonthlySales);
-        console.log(labels);
-        console.log(sales);
-        return(
-            <div>
-                <Bar
-                    data = {{
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                            label: '# of Votes',
-                            yAxisID: 'A',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 3
-                        },
-                    {
-                        label: 'Quantity',
-                        yAxisID: 'B',
-                        data: [100, 50, 125, 130, 50, 75],
-                        backgroundColor: 'lightblue',
-                        borderColor: 'orange',
-                        borderWidth: 3
-                    }]
-                    }}
-                    height = {400}
-                    width = {600}
-                    options = {{
-                        maintainAspectRatio: false,
-                        scales: {
-                            A: {
-                                type: 'linear',
-                                position: 'left',
-                            },
-                            B: {
-                                type: 'linear',
-                                position: 'right',
-                            }
-                        }
-                    }}
-                />
-            </div>
-        )
-    }*/
 
     const BarChart = () => {
         let data = DashboardData.monthwiseSales;
         let labels = data.map((row) => row.Months);
         let sales = data.map((row) => row.MonthlySales);
-        //console.log(labels);
-        //console.log(sales);
         return (
-            <div>
+            <div className="borderedDiv">
                 <Bar
                     data={{
                         labels: labels,
@@ -270,20 +207,26 @@ const Home = () => {
         )
     }
 
-
-    return (
-        <>
-            <NavigationBar />
-            <div className="container">
-                <div className="d-flex">
-                    <SalesBoard />
-                    <CustomerOfthePeriod />
-                    <TopProducts />
+    if(storeData.login.Auth) {
+        return (
+            <>
+                <NavigationBar />
+                <div className="container d-flex flex-column body justify-content-center">
+                    <div className="d-flex flex-wrap">
+                        <SalesBoard />
+                        <CustomerOfthePeriod />
+                        <TopProducts />
+                    </div>
+                    <BarChart />
                 </div>
-                <BarChart />
-            </div>
-        </>
-    );
+            </>
+        );
+    }
+    
+    else {
+        return (<Navigate to="/Login" />);
+    }
+
 }
 
 export default Home;
