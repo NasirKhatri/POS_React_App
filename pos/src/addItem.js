@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import NavigationBar from "./navbar";
 import { Button, Row, Col } from 'react-bootstrap';
@@ -17,7 +17,16 @@ const AddItem = () => {
     const [discount, setdiscount] = useState(0);
     const [itemImage, setitemImage] = useState("");
 
-    let categories = JSON.parse(localStorage.getItem('categories'));
+    let categories;
+
+    if(localStorage.categories) {
+        categories = JSON.parse(localStorage.getItem('categories'));
+    }
+
+    else {
+        categories = [{ImageSource: "", ItemCategoryDescription: "", ItemCategoryID: null}]
+    }
+    
 
     async function PostItem(e) {
         e.preventDefault();
@@ -45,6 +54,23 @@ const AddItem = () => {
             });
 
     }
+
+    async function get_categories() {
+        if (!localStorage.getItem('categories')) {
+          const response = await fetch("Categories");
+          const responseData = await response.json();
+          categories = responseData;
+          localStorage.setItem("categories", JSON.stringify(responseData));
+          console.log(responseData);
+        }
+        else {
+      
+        }
+      }
+
+    useEffect(() => {
+        get_categories();
+      })
 
     if(storeData.login.Auth) {
         return (
